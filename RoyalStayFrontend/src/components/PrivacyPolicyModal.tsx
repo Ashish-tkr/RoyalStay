@@ -1,8 +1,8 @@
-import { 
-  Dialog, 
-  DialogContent, 
-  DialogHeader, 
-  DialogTitle, 
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
   DialogDescription,
   DialogFooter
 } from '@/components/ui/dialog';
@@ -37,8 +37,8 @@ export function PrivacyPolicyModal({
             <section>
               <h3 className="text-lg font-semibold text-royal-300 mb-3">1. Information We Collect</h3>
               <p className="text-gray-200 leading-relaxed mb-3">
-                We collect information you provide directly to us, such as when you create an account, make a reservation, 
-                or contact us for support. This includes your name, email address, phone number, payment information, 
+                We collect information you provide directly to us, such as when you create an account, make a reservation,
+                or contact us for support. This includes your name, email address, phone number, payment information,
                 and any other information you choose to provide.
               </p>
             </section>
@@ -60,12 +60,12 @@ export function PrivacyPolicyModal({
             <section>
               <h3 className="text-lg font-semibold text-royal-300 mb-3">3. Cookies and Tracking Technologies</h3>
               <p className="text-gray-200 leading-relaxed mb-3">
-                We use cookies, pixels, and other tracking technologies to enhance site navigation, analyze site usage, 
+                We use cookies, pixels, and other tracking technologies to enhance site navigation, analyze site usage,
                 and assist in our marketing efforts. You can control cookies through your browser settings.
               </p>
               <div className="bg-blue-900/20 p-4 rounded-lg border border-blue-700/30">
                 <p className="text-blue-200 text-sm">
-                  <strong>Mobile App Users:</strong> We do not store cookies or other technologies on your device 
+                  <strong>Mobile App Users:</strong> We do not store cookies or other technologies on your device
                   that track you across third-party apps or websites.
                 </p>
               </div>
@@ -74,8 +74,8 @@ export function PrivacyPolicyModal({
             <section>
               <h3 className="text-lg font-semibold text-royal-300 mb-3">4. Data Sharing and Disclosure</h3>
               <p className="text-gray-200 leading-relaxed mb-3">
-                We do not sell, trade, or otherwise transfer your personal information to third parties except as 
-                described in this policy. We may share your information with service providers, business partners, 
+                We do not sell, trade, or otherwise transfer your personal information to third parties except as
+                described in this policy. We may share your information with service providers, business partners,
                 or as required by law.
               </p>
             </section>
@@ -83,8 +83,8 @@ export function PrivacyPolicyModal({
             <section>
               <h3 className="text-lg font-semibold text-royal-300 mb-3">5. Data Security</h3>
               <p className="text-gray-200 leading-relaxed mb-3">
-                We implement appropriate security measures to protect your personal information against unauthorized 
-                access, alteration, disclosure, or destruction. However, no method of transmission over the internet 
+                We implement appropriate security measures to protect your personal information against unauthorized
+                access, alteration, disclosure, or destruction. However, no method of transmission over the internet
                 is 100% secure.
               </p>
             </section>
@@ -111,9 +111,9 @@ export function PrivacyPolicyModal({
               </p>
               <div className="bg-luxury-800/50 p-4 rounded-lg border border-luxury-700 mt-3">
                 <p className="text-white">
-                  <strong>Email:</strong> privacy@sirinilaya.com<br />
+                  <strong>Email:</strong> privacy@RoyalStay.com<br />
                   <strong>Phone:</strong> +91 98765 43210<br />
-                  <strong>Address:</strong> Sirinilaya Hospitality, Bangalore, India
+                  <strong>Address:</strong> RoyalStay Hospitality, Bangalore, India
                 </p>
               </div>
             </section>
@@ -121,7 +121,7 @@ export function PrivacyPolicyModal({
             <section>
               <h3 className="text-lg font-semibold text-royal-300 mb-3">8. Changes to This Policy</h3>
               <p className="text-gray-200 leading-relaxed">
-                We may update this Privacy Policy from time to time. We will notify you of any changes by posting 
+                We may update this Privacy Policy from time to time. We will notify you of any changes by posting
                 the new Privacy Policy on this page and updating the "Last Updated" date.
               </p>
               <p className="text-sm text-gray-400 mt-2">
@@ -132,7 +132,7 @@ export function PrivacyPolicyModal({
         </ScrollArea>
 
         <DialogFooter>
-          <Button 
+          <Button
             onClick={onClose}
             className="bg-royal-gradient hover:shadow-lg hover:shadow-royal-500/25 flex items-center gap-2"
           >

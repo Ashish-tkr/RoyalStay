@@ -1,4 +1,468 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
+
 @tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 10 10 10;
+    --foreground: 245 240 230;
+
+    --card: 15 12 10;
+    --card-foreground: 245 240 230;
+
+    --popover: 18 15 12;
+    --popover-foreground: 245 240 230;
+
+    --primary: 212 175 55;
+    --primary-foreground: 10 8 5;
+
+    --secondary: 30 25 20;
+    --secondary-foreground: 200 185 160;
+
+    --muted: 25 20 15;
+    --muted-foreground: 150 135 115;
+
+    --accent: 25 20 15;
+    --accent-foreground: 212 175 55;
+
+    --destructive: 180 40 40;
+    --destructive-foreground: 245 240 230;
+
+    --border: 40 33 25;
+    --input: 25 20 15;
+    --ring: 212 175 55;
+
+    --radius: 0.5rem;
+
+    /* RoyalStay Brand Colors */
+    --gold: #D4AF37;
+    --gold-light: #E8C547;
+    --gold-dark: #B8940F;
+    --obsidian: #0A0805;
+    --deep-mahogany: #1A0F08;
+    --burnished-bronze: #8B6914;
+    --ivory: #F5F0E6;
+    --champagne: #F7E7CE;
+    --slate-silk: #2A2420;
+    --velvet-shadow: rgba(0, 0, 0, 0.65);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--obsidian);
+    color: var(--ivory);
+    font-family: 'DM Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Playfair Display', Georgia, serif;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0A0805;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, #D4AF37, #8B6914);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #D4AF37;
+  }
+}
+
+/* ═══════════════════════════════════════
+   ROYALSTAY DESIGN SYSTEM
+═══════════════════════════════════════ */
+
+@layer components {
+
+  /* --- BRAND IDENTITY --- */
+  .royal-brand {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .royal-subtitle {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-style: italic;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+  }
+
+  /* --- GOLD EFFECTS --- */
+  .gold-text {
+    background: linear-gradient(135deg, #D4AF37 0%, #F7E7CE 45%, #D4AF37 70%, #B8940F 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gold-gradient {
+    background: linear-gradient(135deg, #D4AF37 0%, #E8C547 50%, #B8940F 100%);
+  }
+
+  .gold-border {
+    border: 1px solid;
+    border-image: linear-gradient(135deg, #D4AF37, #8B6914, #D4AF37) 1;
+  }
+
+  /* --- LUXURY CARDS --- */
+  .royal-card {
+    background: linear-gradient(145deg, rgba(26, 15, 8, 0.95) 0%, rgba(15, 12, 10, 0.98) 100%);
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .royal-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.6), transparent);
+  }
+
+  .royal-card:hover {
+    border-color: rgba(212, 175, 55, 0.35);
+    transform: translateY(-4px);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(212, 175, 55, 0.06);
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  /* --- GLASS MORPHISM --- */
+  .glass-royal {
+    background: rgba(26, 15, 8, 0.4);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(212, 175, 55, 0.12);
+  }
+
+  /* --- BUTTONS --- */
+  .btn-royal {
+    background: linear-gradient(135deg, #D4AF37 0%, #E8C547 50%, #B8940F 100%);
+    color: #0A0805;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    padding: 14px 32px;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .btn-royal::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+    transition: left 0.5s ease;
+  }
+
+  .btn-royal:hover::before {
+    left: 100%;
+  }
+
+  .btn-royal:hover {
+    box-shadow: 0 8px 32px rgba(212, 175, 55, 0.4);
+    transform: translateY(-1px);
+  }
+
+  .btn-royal-outline {
+    background: transparent;
+    color: #D4AF37;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    padding: 13px 31px;
+    border: 1px solid rgba(212, 175, 55, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .btn-royal-outline:hover {
+    background: rgba(212, 175, 55, 0.08);
+    border-color: #D4AF37;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+  }
+
+  /* --- DECORATIVE DIVIDERS --- */
+  .ornament-divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: rgba(212, 175, 55, 0.5);
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+
+  .ornament-divider::before,
+  .ornament-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.4), transparent);
+  }
+
+  /* --- SECTION LABELS --- */
+  .section-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: #D4AF37;
+    opacity: 0.85;
+  }
+
+  /* --- LUXURY INPUTS --- */
+  .input-royal {
+    background: rgba(26, 15, 8, 0.6);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    color: var(--ivory);
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.3s ease;
+    padding: 14px 18px;
+  }
+
+  .input-royal:focus {
+    outline: none;
+    border-color: rgba(212, 175, 55, 0.6);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.08);
+    background: rgba(26, 15, 8, 0.8);
+  }
+
+  .input-royal::placeholder {
+    color: rgba(245, 240, 230, 0.35);
+    font-style: italic;
+  }
+
+  /* --- HOVER LIFT --- */
+  .hover-lift {
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5), 0 0 50px rgba(212, 175, 55, 0.05);
+  }
+
+  /* --- STATUS BADGES --- */
+  .status-confirmed {
+    background: rgba(16, 185, 129, 0.12);
+    color: #10B981;
+    border: 1px solid rgba(16, 185, 129, 0.25);
+  }
+
+  .status-pending {
+    background: rgba(212, 175, 55, 0.12);
+    color: #D4AF37;
+    border: 1px solid rgba(212, 175, 55, 0.25);
+  }
+
+  .status-cancelled {
+    background: rgba(239, 68, 68, 0.12);
+    color: #EF4444;
+    border: 1px solid rgba(239, 68, 68, 0.25);
+  }
+
+  /* --- ANIMATED GLOW --- */
+  .gold-glow {
+    animation: goldPulse 3s ease-in-out infinite;
+  }
+
+  /* --- SCROLLING MARQUEE --- */
+  .marquee {
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .marquee-track {
+    display: inline-flex;
+    animation: marqueeScroll 30s linear infinite;
+  }
+
+  /* --- PAGE TRANSITIONS --- */
+  .page-enter {
+    animation: pageReveal 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  }
+}
+
+/* ═══════════════════════════════════════
+   ANIMATIONS
+═══════════════════════════════════════ */
+
+@layer utilities {
+
+  /* Keyframes */
+  @keyframes goldPulse {
+    0%, 100% { box-shadow: 0 0 15px rgba(212, 175, 55, 0.15); }
+    50% { box-shadow: 0 0 35px rgba(212, 175, 55, 0.35); }
+  }
+
+  @keyframes marqueeScroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  @keyframes pageReveal {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeInLeft {
+    from { opacity: 0; transform: translateX(-30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes fadeInRight {
+    from { opacity: 0; transform: translateX(30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes scaleReveal {
+    from { opacity: 0; transform: scale(0.92); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    33% { transform: translateY(-12px) rotate(1deg); }
+    66% { transform: translateY(6px) rotate(-1deg); }
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  @keyframes spinSlow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(60px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes zoomInFade {
+    from { opacity: 0; transform: scale(0.85); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes accordionDown {
+    from { height: 0; }
+    to { height: var(--radix-accordion-content-height); }
+  }
+
+  @keyframes accordionUp {
+    from { height: var(--radix-accordion-content-height); }
+    to { height: 0; }
+  }
+
+  /* Animation Utilities */
+  .animate-fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+  .animate-fade-in-left { animation: fadeInLeft 0.8s ease-out forwards; }
+  .animate-fade-in-right { animation: fadeInRight 0.8s ease-out forwards; }
+  .animate-scale-reveal { animation: scaleReveal 0.7s ease-out forwards; }
+  .animate-float { animation: float 4s ease-in-out infinite; }
+  .animate-shimmer {
+    background: linear-gradient(90deg, #D4AF37 0%, #F7E7CE 50%, #D4AF37 100%);
+    background-size: 200%;
+    animation: shimmer 2.5s linear infinite;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .animate-blink { animation: blink 1.2s ease-in-out infinite; }
+  .animate-spin-slow { animation: spinSlow 8s linear infinite; }
+  .animate-slide-up { animation: slideUp 0.9s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
+  .animate-scale-in { animation: scaleIn 0.5s ease-out forwards; }
+  .animate-fade-in { animation: fadeInUp 0.7s ease-out forwards; }
+  .animate-accordion-down { animation: accordionDown 0.2s ease-out; }
+  .animate-accordion-up { animation: accordionUp 0.2s ease-out; }
+
+  /* Delay utilities */
+  .delay-100 { animation-delay: 0.1s; }
+  .delay-200 { animation-delay: 0.2s; }
+  .delay-300 { animation-delay: 0.3s; }
+  .delay-400 { animation-delay: 0.4s; }
+  .delay-500 { animation-delay: 0.5s; }
+  .delay-600 { animation-delay: 0.6s; }
+  .delay-700 { animation-delay: 0.7s; }
+  .delay-800 { animation-delay: 0.8s; }
+  .delay-1000 { animation-delay: 1s; }
+}
+
+/* ═══════════════════════════════════════
+   LEGACY COMPATIBILITY (maps old classes to new)
+═══════════════════════════════════════ */
+.gradient-text { @apply gold-text; }
+.luxury-card { @apply royal-card rounded-xl; }
+.glass-morphism { @apply glass-royal; }
+.bg-luxury-950 { background-color: var(--obsidian) !important; }
+.bg-luxury-900 { background-color: var(--deep-mahogany) !important; }
+.bg-luxury-800 { background-color: var(--slate-silk) !important; }
+.bg-luxury-700 { background-color: #3D3028 !important; }
+.bg-luxury-600 { background-color: #524035 !important; }
+.border-luxury-700 { border-color: rgba(212, 175, 55, 0.18) !important; }
+.border-luxury-800 { border-color: rgba(212, 175, 55, 0.1) !important; }
+.text-royal-400 { color: #D4AF37 !important; }
+.text-royal-300 { color: #E8C547 !important; }
+.bg-royal-gradient { @apply gold-gradient !important; }
+.text-luxury-950 { color: #0A0805 !important; }
+
+
+/* @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -76,7 +540,7 @@
   ::-webkit-scrollbar-thumb:hover {
     @apply bg-royal-500;
   }
-}
+
 
 @layer components {
   .glass-morphism {
@@ -321,4 +785,4 @@
       transform: translateY(10px) rotate(45deg);
     }
   }
-}
+} 

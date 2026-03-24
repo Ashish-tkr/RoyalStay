@@ -9,7 +9,7 @@ const testimonials = [
     name: 'Priya Sharma',
     location: 'Mumbai, India',
     rating: 5,
-    text: 'Sirinilaya exceeded all our expectations. The attention to detail, luxurious amenities, and personalized service made our anniversary celebration truly magical. Every moment was crafted to perfection.',
+    text: 'RoyalStay exceeded all our expectations. The attention to detail, luxurious amenities, and personalized service made our anniversary celebration truly magical. Every moment was crafted to perfection.',
     image: 'https://images.unsplash.com/photo-1494790108755-2616b612b1a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
     stay: 'Royal Villa Retreat, Goa',
     date: 'March 2024'
@@ -39,7 +39,7 @@ const testimonials = [
     name: 'Vikram Singh',
     location: 'Pune, India',
     rating: 5,
-    text: 'Outstanding service and breathtaking views. The concierge team helped us discover hidden gems in the area. Our family vacation was absolutely perfect thanks to Sirinilaya.',
+    text: 'Outstanding service and breathtaking views. The concierge team helped us discover hidden gems in the area. Our family vacation was absolutely perfect thanks to RoyalStay.',
     image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
     stay: 'Beachfront Paradise, Kerala',
     date: 'April 2024'
@@ -77,7 +77,7 @@ const TestimonialsPage = () => {
   return (
     <div className="min-h-screen bg-luxury-950">
       <Navbar />
-      
+
       {/* Header Section */}
       <section className="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center">
@@ -85,7 +85,7 @@ const TestimonialsPage = () => {
             Guest <span className="gradient-text">Testimonials</span>
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Discover what our valued guests say about their extraordinary experiences at Sirinilaya
+            Discover what our valued guests say about their extraordinary experiences at RoyalStay
           </p>
         </div>
       </section>
@@ -95,7 +95,7 @@ const TestimonialsPage = () => {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
-              <div 
+              <div
                 key={stat.label}
                 className="text-center animate-fade-in"
                 style={{ animationDelay: `${index * 0.1}s` }}
@@ -115,19 +115,19 @@ const TestimonialsPage = () => {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {testimonials.map((testimonial, index) => (
-              <div 
+              <div
                 key={testimonial.id}
                 className="luxury-card p-8 rounded-2xl hover-lift animate-scale-in"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <div className="relative">
                   <Quote className="w-10 h-10 text-royal-400 mb-6 opacity-50" />
-                  
+
                   <div className="flex items-center mb-4">
                     {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star 
-                        key={i} 
-                        className="w-5 h-5 text-yellow-400 fill-current" 
+                      <Star
+                        key={i}
+                        className="w-5 h-5 text-yellow-400 fill-current"
                       />
                     ))}
                   </div>
@@ -139,7 +139,7 @@ const TestimonialsPage = () => {
                   <div className="border-t border-luxury-700 pt-6">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center">
-                        <img 
+                        <img
                           src={testimonial.image}
                           alt={testimonial.name}
                           className="w-12 h-12 rounded-full object-cover mr-4 border-2 border-royal-400"
@@ -153,7 +153,7 @@ const TestimonialsPage = () => {
                           </p>
                         </div>
                       </div>
-                      
+
                       <div className="text-right">
                         <p className="text-royal-400 text-sm font-medium">
                           {testimonial.stay}
@@ -178,7 +178,7 @@ const TestimonialsPage = () => {
             Ready to Create Your Own <span className="gradient-text">Story</span>?
           </h2>
           <p className="text-xl text-gray-300 mb-8">
-            Join thousands of satisfied guests who have experienced the luxury of Sirinilaya
+            Join thousands of satisfied guests who have experienced the luxury of RoyalStay
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button className="bg-royal-gradient px-8 py-4 rounded-lg font-semibold text-white hover:shadow-lg hover:shadow-royal-500/25 transition-all duration-300">

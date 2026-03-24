@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import UserModel from '../models/User.js';
 import { generateState } from 'arctic';
-import  {generateToken}  from '../utils/generateToken.js';
+import { generateToken } from '../utils/generateToken.js';
 import passport from 'passport';
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
@@ -18,39 +18,39 @@ const transporter = nodemailer.createTransport({
 
 //Signup
 const signup = async (req, res) => {
+  try {
+    const { firstName, lastName, phone, email, password, termsAccepted, subscribeNewsletter } = req.body;
+
+    if (!password || !phone) {
+      return res.status(400).json({ message: "Password and phone are required", success: false });
+    }
+
+    // 👀 Debug session values
+    console.log("Session at signup:", req.session);
+    // Debugging logs
+    console.log("Signup called");
+    console.log("Request body:", req.body);
+
+    // Step 2: Check if user already exists
+    const user = await UserModel.findOne({ email });
+    if (user) {
+      return res.status(409)
+        .json({ message: 'User is already exist, you can login', success: false });
+    }
+
+    // Step 3: Create new user
+    const name = `${firstName} ${lastName}`;
+    const userModel = new UserModel({ name: name, phone, email, password, termsAccepted, subscribeNewsletter });
+    userModel.password = await bcrypt.hash(password, 10);
+    await userModel.save();
+
+    // Step 4: Send welcome email after successful registration
     try {
-        const { firstName, lastName, phone, email, password, termsAccepted, subscribeNewsletter } = req.body;
-        
-        if(!password || !phone ){
-            return res.status(400).json({ message: "Password and phone are required", success: false });
-        }
-
-        // 👀 Debug session values
-        console.log("Session at signup:", req.session);
-        // Debugging logs
-        console.log("Signup called");
-        console.log("Request body:", req.body);
-
-        // Step 2: Check if user already exists
-        const user = await UserModel.findOne({ email });
-        if (user) {
-            return res.status(409)
-                .json({ message: 'User is already exist, you can login', success: false });
-        }
-
-        // Step 3: Create new user
-        const name = `${firstName} ${lastName}`;
-        const userModel = new UserModel({ name: name, phone, email, password, termsAccepted, subscribeNewsletter });
-        userModel.password = await bcrypt.hash(password, 10);
-        await userModel.save();
-
-        // Step 4: Send welcome email after successful registration
-        try {
-            const welcomeEmail = {
-                from: process.env.EMAIL_USER,
-                to: email,
-                subject: 'Welcome to Sirinilaya - Your Journey to Luxury Begins',
-                html: `
+      const welcomeEmail = {
+        from: process.env.EMAIL_USER,
+        to: email,
+        subject: 'Welcome to RoyalStay - Your Journey to Luxury Begins',
+        html: `
                     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #f9f9f9;">
                         <!-- Header with Logo -->
                         <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px 20px; text-align: center;">
@@ -67,10 +67,10 @@ const signup = async (req, res) => {
                                         <rect x="130" y="180" width="40" height="40" fill="#FFD700" rx="5"/>
                                         <path d="M50 200 Q30 180, 20 160 Q10 140, 30 120 Q50 100, 80 80" fill="none" stroke="white" stroke-width="3"/>
                                     </g>
-                                    <text x="200" y="320" text-anchor="middle" font-size="24" font-weight="bold" fill="white">SIRINILAYA</text>
+                                    <text x="200" y="320" text-anchor="middle" font-size="24" font-weight="bold" fill="white">RoyalStay</text>
                                 </svg>
                             </div>
-                            <h1 style="margin: 0; font-size: 2.5em;">Welcome to Sirinilaya</h1>
+                            <h1 style="margin: 0; font-size: 2.5em;">Welcome to RoyalStay</h1>
                             <p style="margin: 10px 0 0; font-size: 1.2em; opacity: 0.9;">Peaceful • Luxurious • Unforgettable</p>
                         </div>
 
@@ -79,7 +79,7 @@ const signup = async (req, res) => {
                             <h2 style="color: #667eea; margin-bottom: 20px;">Dear ${firstName},</h2>
                             
                             <p style="font-size: 16px; line-height: 1.6; color: #333; margin-bottom: 20px;">
-                                Welcome to Sirinilaya, where luxury meets tranquility! We're thrilled to have you join our exclusive community of discerning travelers who appreciate the finest in hospitality.
+                                Welcome to RoyalStay, where luxury meets tranquility! We're thrilled to have you join our exclusive community of discerning travelers who appreciate the finest in hospitality.
                             </p>
 
                             <div style="background: linear-gradient(135deg, #f8f9ff 0%, #e8eaff 100%); padding: 25px; border-radius: 10px; margin: 25px 0; border-left: 4px solid #667eea;">
@@ -91,7 +91,7 @@ const signup = async (req, res) => {
                                 </p>
                             </div>
 
-                            <h3 style="color: #667eea; margin: 30px 0 15px;">What makes Sirinilaya special?</h3>
+                            <h3 style="color: #667eea; margin: 30px 0 15px;">What makes RoyalStay special?</h3>
                             <ul style="color: #555; line-height: 1.8; padding-left: 20px;">
                                 <li><strong>Curated Properties:</strong> Handpicked accommodations that exceed expectations</li>
                                 <li><strong>Personalized Service:</strong> Tailored experiences for every guest</li>
@@ -121,7 +121,7 @@ const signup = async (req, res) => {
                             <div style="background: #f8f9ff; padding: 20px; border-radius: 8px;">
                                 <h4 style="color: #667eea; margin: 0 0 10px;">Our Story</h4>
                                 <p style="margin: 0; color: #666; font-size: 14px; line-height: 1.6;">
-                                    Founded with a vision to redefine luxury hospitality, Sirinilaya comes from Sanskrit: 
+                                    Founded with a vision to redefine luxury hospitality, RoyalStay comes from Sanskrit: 
                                     'Siri' meaning wealth and prosperity, and 'Nilaya' meaning home or dwelling. 
                                     Together, they represent our commitment to providing peaceful, luxurious homes away from home.
                                 </p>
@@ -136,103 +136,103 @@ const signup = async (req, res) => {
                             </p>
                             <div style="margin: 15px 0;">
                                 <p style="margin: 5px 0; font-size: 14px;">📧 ${process.env.CONTACT_EMAIL || process.env.EMAIL_USER}</p>
-                                <p style="margin: 5px 0; font-size: 14px;">🌐 ${process.env.WEBSITE_URL || 'www.sirinilaya.com'}</p>
+                                <p style="margin: 5px 0; font-size: 14px;">🌐 ${process.env.WEBSITE_URL || 'www.RoyalStay.com'}</p>
                             </div>
                             <hr style="border: none; border-top: 1px solid #555; margin: 20px 0;">
                             <p style="margin: 0; font-size: 12px; opacity: 0.7;">
-                                &copy; ${new Date().getFullYear()} Sirinilaya. Redefining luxury hospitality with peaceful, luxurious homes away from home.
+                                &copy; ${new Date().getFullYear()} RoyalStay. Redefining luxury hospitality with peaceful, luxurious homes away from home.
                             </p>
                         </div>
                     </div>
                 `
-            };
+      };
 
-            await transporter.sendMail(welcomeEmail);
-            console.log(`Welcome email sent to ${email}`);
+      await transporter.sendMail(welcomeEmail);
+      console.log(`Welcome email sent to ${email}`);
 
-        } catch (emailError) {
-            console.error('Email sending failed:', emailError);
-            // Don't fail the registration if email fails, just log it
-        }
-
-        res.status(201).json({
-            message: "Signup successful! Welcome to Sirinilaya - check your email for more details.",
-            success: true
-        });
-
-    } catch (err) {
-        // Debugging log
-        console.error("Error in signup:", err);
-        res.status(500).json({
-            message: "Internal server error",
-            success: false
-        });
+    } catch (emailError) {
+      console.error('Email sending failed:', emailError);
+      // Don't fail the registration if email fails, just log it
     }
+
+    res.status(201).json({
+      message: "Signup successful! Welcome to RoyalStay - check your email for more details.",
+      success: true
+    });
+
+  } catch (err) {
+    // Debugging log
+    console.error("Error in signup:", err);
+    res.status(500).json({
+      message: "Internal server error",
+      success: false
+    });
+  }
 }
 
 // Login
 const login = async (req, res) => {
-    try {
-        const { email, password, rememberMe } = req.body;
-        const user = await UserModel.findOne({ email });
-        const errorMsg = 'Auth failed email or password is wrong';
-        
-        if (!user) {
-            return res.status(403).json({ message: errorMsg, success: false });
-        }
+  try {
+    const { email, password, rememberMe } = req.body;
+    const user = await UserModel.findOne({ email });
+    const errorMsg = 'Auth failed email or password is wrong';
 
-        // Compare password
-        const isPassEqual = await bcrypt.compare(password, user.password);
-        if (!isPassEqual) {
-            return res.status(403).json({ message: errorMsg, success: false });
-        }
-
-        // Generate JWT
-        const token = generateToken(user);
-
-        // Set cookie with proper configuration
-        res.cookie("UserToken", token, {
-        httpOnly: true,
-        secure: false,       // ⚠️ only for localhost
-        sameSite: "lax",    // 🔑 must be "none" for cross-origin
-        maxAge: 7 * 24 * 60 * 60 * 1000
-        });
-
-
-        res.status(200).json({
-            message: "Login Success",
-            success: true,
-            token: token,
-            email,
-            firstname: user.firstName,
-            lastname: user.lastName,
-            phone: user.phone,
-            rememberMe
-        })
-    } catch (err) {
-        res.status(500).json({
-            message: "Internal server error",
-            success: false
-        })
+    if (!user) {
+      return res.status(403).json({ message: errorMsg, success: false });
     }
+
+    // Compare password
+    const isPassEqual = await bcrypt.compare(password, user.password);
+    if (!isPassEqual) {
+      return res.status(403).json({ message: errorMsg, success: false });
+    }
+
+    // Generate JWT
+    const token = generateToken(user);
+
+    // Set cookie with proper configuration
+    res.cookie("UserToken", token, {
+      httpOnly: true,
+      secure: false,       // ⚠️ only for localhost
+      sameSite: "lax",    // 🔑 must be "none" for cross-origin
+      maxAge: 7 * 24 * 60 * 60 * 1000
+    });
+
+
+    res.status(200).json({
+      message: "Login Success",
+      success: true,
+      token: token,
+      email,
+      firstname: user.firstName,
+      lastname: user.lastName,
+      phone: user.phone,
+      rememberMe
+    })
+  } catch (err) {
+    res.status(500).json({
+      message: "Internal server error",
+      success: false
+    })
+  }
 }
 
 const logout = (req, res) => {
-    res.clearCookie("UserToken", {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax"
-    });
-    req.session.destroy((err) => {
-        if (err) {
-            return res.status(500).json({ message: "Failed to log out", success: false });
-        }
-        res.json({ message: "Logged out successfully", success: true });
-    });
+  res.clearCookie("UserToken", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax"
+  });
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).json({ message: "Failed to log out", success: false });
+    }
+    res.json({ message: "Logged out successfully", success: true });
+  });
 }
 
 const forgotPassword = async (req, res) => {
-    try {
+  try {
     const { email } = req.body;
 
     const user = await UserModel.findOne({ email });
@@ -296,10 +296,10 @@ const resetPassword = async (req, res) => {
 export const googleCallback = (req, res) => {
   try {
     console.log('✅ Google OAuth successful, user:', req.user);
-    
+
     // Generate JWT token
     const token = generateToken(req.user);
-    
+
     // Set cookie with proper configuration
     res.cookie('UserToken', token, {
       httpOnly: true,
@@ -308,12 +308,12 @@ export const googleCallback = (req, res) => {
       maxAge: 7 * 24 * 60 * 60 * 1000,
       path: '/'
     });
-    
+
     console.log('✅ UserToken cookie set for user:', req.user._id);
-    
+
     // Redirect to frontend
     res.redirect(process.env.FRONTEND_URL || 'http://localhost:8080');
-    
+
   } catch (error) {
     console.error('❌ Error in Google callback:', error);
     res.redirect(process.env.FRONTEND_URL || 'http://localhost:8080?error=auth_failed');
@@ -373,7 +373,7 @@ const handleCallback = async (req, res) => {
       if (!user.googleId) {
         console.log('Linking Google ID to existing user');
         user.googleId = googleUserId;
-      } else if (user.googleId !== googleUserId && user.email === emailLower ) {
+      } else if (user.googleId !== googleUserId && user.email === emailLower) {
         console.log('❌ Google account conflict detected');
         // Edge case: account already linked with another GoogleId
         return res.status(409).json({
@@ -457,23 +457,23 @@ const handleCallback = async (req, res) => {
     });
 
     console.log('=== Google OAuth Callback Completed Successfully ===');
-    
-    return res.status(200).json({ 
-      message: "Google OAuth successful", 
-      success: true, 
+
+    return res.status(200).json({
+      message: "Google OAuth successful",
+      success: true,
       user: {
         id: user._id,
         name: user.name,
         email: user.email,
         picture: user.picture
-      } 
+      }
     });
 
-    
+
 
   } catch (err) {
     console.error('❌ Error in Google OAuth handleCallback:', err);
-    
+
     // Handle duplicate key errors gracefully
     if (err?.code === 11000) {
       console.log('❌ Duplicate key error:', err.keyValue);
@@ -483,37 +483,37 @@ const handleCallback = async (req, res) => {
       });
     }
 
-    return res.status(500).json({ 
-      message: "Internal server error", 
+    return res.status(500).json({
+      message: "Internal server error",
       success: false,
-      error: err.message 
+      error: err.message
     });
   }
 };
 
 const update_user = async (req, res) => {
-    try {
-        const userId = req.params.id;
-        const updateData = req.body;
-        const user = await UserModel.findByIdAndUpdate(userId, updateData, { new: true });
-        if (!user) {
-            return res.status(404).json({
-                success: false,
-                message: 'User not found'
-            });
-        }
-        res.json({
-            success: true,
-            message: 'User updated successfully',
-            user
-        });
-    } catch (error) {
-        res.status(400).json({
-            success: false,
-            message: 'Error updating user',
-            error: error.message
-        });
+  try {
+    const userId = req.params.id;
+    const updateData = req.body;
+    const user = await UserModel.findByIdAndUpdate(userId, updateData, { new: true });
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: 'User not found'
+      });
     }
+    res.json({
+      success: true,
+      message: 'User updated successfully',
+      user
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: 'Error updating user',
+      error: error.message
+    });
+  }
 };
 
 

@@ -8,7 +8,7 @@ const testimonials = [
     name: 'Priya Sharma',
     location: 'Mumbai, India',
     rating: 5,
-    text: 'Sirinilaya exceeded all our expectations. The attention to detail, luxurious amenities, and personalized service made our anniversary celebration truly magical.',
+    text: 'RoyalStay exceeded all our expectations. The attention to detail, luxurious amenities, and personalized service made our anniversary celebration truly magical.',
     image: 'https://images.unsplash.com/photo-1494790108755-2616b612b1a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80'
   },
   {
@@ -64,8 +64,8 @@ const Testimonials = () => {
           <div className="luxury-card p-8 sm:p-12 rounded-2xl">
             <div className="relative">
               <Quote className="w-12 h-12 text-royal-400 mb-6 opacity-50" />
-              
-              <div 
+
+              <div
                 key={currentIndex}
                 className="animate-fade-in"
               >
@@ -75,7 +75,7 @@ const Testimonials = () => {
 
                 <div className="flex items-center justify-between">
                   <div className="flex items-center">
-                    <img 
+                    <img
                       src={testimonials[currentIndex].image}
                       alt={testimonials[currentIndex].name}
                       className="w-16 h-16 rounded-full object-cover mr-4 border-2 border-royal-400"
@@ -92,9 +92,9 @@ const Testimonials = () => {
 
                   <div className="flex items-center">
                     {[...Array(testimonials[currentIndex].rating)].map((_, i) => (
-                      <Star 
-                        key={i} 
-                        className="w-5 h-5 text-yellow-400 fill-current" 
+                      <Star
+                        key={i}
+                        className="w-5 h-5 text-yellow-400 fill-current"
                       />
                     ))}
                   </div>
@@ -105,7 +105,7 @@ const Testimonials = () => {
 
           {/* Navigation Controls */}
           <div className="flex justify-center items-center mt-8 space-x-4">
-            <button 
+            <button
               onClick={prevTestimonial}
               className="p-2 rounded-full glass-morphism hover:bg-royal-500/20 transition-colors duration-200"
             >
@@ -117,16 +117,15 @@ const Testimonials = () => {
                 <button
                   key={index}
                   onClick={() => setCurrentIndex(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                    index === currentIndex 
-                      ? 'bg-royal-400 scale-125' 
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentIndex
+                      ? 'bg-royal-400 scale-125'
                       : 'bg-gray-600 hover:bg-gray-500'
-                  }`}
+                    }`}
                 />
               ))}
             </div>
 
-            <button 
+            <button
               onClick={nextTestimonial}
               className="p-2 rounded-full glass-morphism hover:bg-royal-500/20 transition-colors duration-200"
             >

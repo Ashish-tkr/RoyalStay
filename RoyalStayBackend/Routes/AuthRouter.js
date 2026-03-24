@@ -2,7 +2,7 @@ import { signup, login, logout, forgotPassword, resetPassword, update_user } fro
 import { signupValidation, loginValidation } from '../middleware/AuthValidation.js';
 import nodemailer from 'nodemailer';
 import { Router } from 'express';
-import  passport  from '../Controllers/auth.js';
+import passport from '../Controllers/auth.js';
 import { createOrder, verifyPayment } from '../Controllers/paymentController.js';
 import { googleCallback } from '../Controllers/AuthController.js';
 import UserModel from '../models/User.js';
@@ -50,8 +50,8 @@ router.get('/google', passport.authenticate('google', {
   scope: ['profile', 'email']
 }));
 
-router.get('/google/callback', 
-  passport.authenticate('google', { 
+router.get('/google/callback',
+  passport.authenticate('google', {
     failureRedirect: '/login',
     session: false // Important: Disable sessions if using JWT
   }),
@@ -172,7 +172,7 @@ router.post("/verify-otp", async (req, res) => {
     return res.status(400).json({ success: false, message: "Invalid OTP" });
   }
 
-    req.session.isForgotOtpVerified = true;
+  req.session.isForgotOtpVerified = true;
   res.json({ success: true, message: "OTP verified successfully" });
 
   // ✅ OTP valid → mark as verified
@@ -255,7 +255,7 @@ router.post("/send-message", async (req, res) => {
   const { firstName, lastName, email, phone, subject, message } = req.body;
 
   try {
-    const transporter = nodemailer.createTransport({ 
+    const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
         user: process.env.EMAIL_USER, // your email
@@ -263,11 +263,11 @@ router.post("/send-message", async (req, res) => {
       },
     });
 
-await transporter.sendMail({
-  from: process.env.EMAIL_USER,
-  to: process.env.EMAIL_USER, // send to yourself
-  subject: `Contact Form: ${subject}`,
-  html: `
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      to: process.env.EMAIL_USER, // send to yourself
+      subject: `Contact Form: ${subject}`,
+      html: `
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -387,51 +387,51 @@ await transporter.sendMail({
         <div class="footer">
           <p>This message was sent via your website contact form</p>
           <div class="timestamp">
-            Received: ${new Date().toLocaleString('en-US', { 
-              year: 'numeric', 
-              month: 'long', 
-              day: 'numeric',
-              hour: '2-digit',
-              minute: '2-digit'
-            })}
+            Received: ${new Date().toLocaleString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      })}
           </div>
         </div>
       </div>
     </body>
     </html>
   `,
-  text: `Contact form submission from ${firstName} ${lastName} (${email})`
-});
+      text: `Contact form submission from ${firstName} ${lastName} (${email})`
+    });
 
-app.post('/api/send-email', async (req, res) => {
-  try {
-    const { name, email, phone, message, subject } = req.body;
+    app.post('/api/send-email', async (req, res) => {
+      try {
+        const { name, email, phone, message, subject } = req.body;
 
-    // Validation
-    if (!name || !email || !message) {
-      return res.status(400).json({
-        success: false,
-        message: 'Name, email, and message are required fields.'
-      });
-    }
+        // Validation
+        if (!name || !email || !message) {
+          return res.status(400).json({
+            success: false,
+            message: 'Name, email, and message are required fields.'
+          });
+        }
 
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return res.status(400).json({
-        success: false,
-        message: 'Please provide a valid email address.'
-      });
-    }
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+          return res.status(400).json({
+            success: false,
+            message: 'Please provide a valid email address.'
+          });
+        }
 
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to: process.env.CONTACT_EMAIL || process.env.EMAIL_USER,
-      subject: subject || `New Contact from ${name} - Sirinilaya`,
-      html: `
+        const mailOptions = {
+          from: process.env.EMAIL_USER,
+          to: process.env.CONTACT_EMAIL || process.env.EMAIL_USER,
+          subject: subject || `New Contact from ${name} - RoyalStay`,
+          html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; text-align: center;">
-            <h2 style="margin: 0;">New Contact - Sirinilaya</h2>
+            <h2 style="margin: 0;">New Contact - RoyalStay</h2>
           </div>
           <div style="padding: 20px; background: #f9f9f9;">
             <h3 style="color: #333;">Contact Details:</h3>
@@ -444,52 +444,52 @@ app.post('/api/send-email', async (req, res) => {
             </div>
           </div>
           <div style="background: #333; color: white; padding: 10px; text-align: center; font-size: 12px;">
-            <p>This email was sent from your Sirinilaya website contact form.</p>
+            <p>This email was sent from your RoyalStay website contact form.</p>
           </div>
         </div>
       `
-    };
+        };
 
-    // Send confirmation email to user
-    const confirmationMail = {
-      from: process.env.EMAIL_USER,
-      to: email,
-      subject: 'Thank you for contacting Sirinilaya',
-      html: `
+        // Send confirmation email to user
+        const confirmationMail = {
+          from: process.env.EMAIL_USER,
+          to: email,
+          subject: 'Thank you for contacting RoyalStay',
+          html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; text-align: center;">
-            <h2 style="margin: 0;">Thank You - Sirinilaya</h2>
+            <h2 style="margin: 0;">Thank You - RoyalStay</h2>
           </div>
           <div style="padding: 20px;">
             <p>Dear ${name},</p>
-            <p>Thank you for reaching out to Sirinilaya. We have received your message and will get back to you within 24 hours.</p>
+            <p>Thank you for reaching out to RoyalStay. We have received your message and will get back to you within 24 hours.</p>
             <p>We look forward to helping you discover exceptional stays where luxury meets tranquility.</p>
             <div style="margin: 20px 0; padding: 15px; background: #f8f9ff; border-radius: 5px;">
               <p><strong>Your Message:</strong></p>
               <p style="font-style: italic;">"${message}"</p>
             </div>
-            <p>Best regards,<br>The Sirinilaya Team</p>
+            <p>Best regards,<br>The RoyalStay Team</p>
           </div>
         </div>
       `
-    };
+        };
 
-    await transporter.sendMail(mailOptions);
-    await transporter.sendMail(confirmationMail);
+        await transporter.sendMail(mailOptions);
+        await transporter.sendMail(confirmationMail);
 
-    res.json({
-      success: true,
-      message: 'Thank you for your message. We will get back to you soon!'
+        res.json({
+          success: true,
+          message: 'Thank you for your message. We will get back to you soon!'
+        });
+
+      } catch (error) {
+        console.error('Email error:', error);
+        res.status(500).json({
+          success: false,
+          message: 'Sorry, there was an error sending your message. Please try again later.'
+        });
+      }
     });
-
-  } catch (error) {
-    console.error('Email error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'Sorry, there was an error sending your message. Please try again later.'
-    });
-  }
-});
 
 
     res.json({ success: true, message: "Email sent successfully!" });

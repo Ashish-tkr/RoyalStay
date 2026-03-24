@@ -27,7 +27,7 @@ const getEmbeddedTemplate = () => {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Booking Confirmation - Sirinilaya</title>
+    <title>Booking Confirmation - RoyalStay</title>
     <style>
         * {
             margin: 0;
@@ -181,7 +181,7 @@ const getEmbeddedTemplate = () => {
 <body>
     <div class="container">
         <div class="header">
-            <h1>SIRINILAYA</h1>
+            <h1>RoyalStay</h1>
             <p>Peaceful • Luxurious • Unforgettable</p>
         </div>
         
@@ -195,7 +195,7 @@ const getEmbeddedTemplate = () => {
                 Dear <strong>{{guestName}}</strong>,
             </p>
             <p style="margin-bottom: 20px;">
-                Thank you for choosing Sirinilaya. We're excited to host you for an unforgettable stay.
+                Thank you for choosing RoyalStay. We're excited to host you for an unforgettable stay.
             </p>
             
             <div class="booking-info">
@@ -282,10 +282,10 @@ const getEmbeddedTemplate = () => {
         </div>
         
         <div class="footer">
-            <p><strong>Thank you for choosing Sirinilaya</strong></p>
+            <p><strong>Thank you for choosing RoyalStay</strong></p>
             <div class="contact-info">
-                <p>📧 Contact Support: support@sirinilaya.com</p>
-                <p>🌐 Manage Booking: www.sirinilaya.com/bookings</p>
+                <p>📧 Contact Support: support@RoyalStay.com</p>
+                <p>🌐 Manage Booking: www.RoyalStay.com/bookings</p>
             </div>
         </div>
     </div>
@@ -294,10 +294,10 @@ const getEmbeddedTemplate = () => {
 };
 
 // Function to send booking confirmation email
-export const sendBookingConfirmationEmail = async (bookingData) => { 
+export const sendBookingConfirmationEmail = async (bookingData) => {
   try {
     console.log("📧 Preparing booking confirmation email...");
-    
+
     const {
       booking,
       guestInfo,
@@ -314,7 +314,7 @@ export const sendBookingConfirmationEmail = async (bookingData) => {
 
     // Always use embedded template to avoid file read issues
     let htmlTemplate = getEmbeddedTemplate();
-    
+
     console.log("✅ Using embedded HTML template");
 
     // Format dates
@@ -373,7 +373,7 @@ export const sendBookingConfirmationEmail = async (bookingData) => {
     // Email options with both HTML and text
     const mailOptions = {
       from: {
-        name: 'Sirinilaya',
+        name: 'RoyalStay',
         address: process.env.EMAIL_USER,
       },
       to: guestInfo.email,
@@ -394,7 +394,7 @@ export const sendBookingConfirmationEmail = async (bookingData) => {
     // Send email
     const result = await transporter.sendMail(mailOptions);
     console.log("✅ Booking confirmation email sent successfully:", result.messageId);
-    
+
     return {
       success: true,
       messageId: result.messageId,
@@ -436,14 +436,14 @@ const createTextVersion = (bookingData) => {
   };
 
   return `
-SIRINILAYA - BOOKING CONFIRMATION
+RoyalStay - BOOKING CONFIRMATION
 Peaceful • Luxurious • Unforgettable
 
 🎉 BOOKING CONFIRMED!
 
 Dear ${guestInfo.firstName || ''} ${guestInfo.lastName || ''},
 
-Thank you for choosing Sirinilaya. Your luxury experience awaits where tranquility meets exceptional hospitality.
+Thank you for choosing RoyalStay. Your luxury experience awaits where tranquility meets exceptional hospitality.
 
 BOOKING DETAILS:
 Booking ID: ${booking._id || 'N/A'}
@@ -473,10 +473,10 @@ WHAT'S NEXT:
 
 "Where luxury meets serenity, creating unforgettable experiences in the world's most beautiful destinations."
 
-Thank you for choosing Sirinilaya for your luxury stay.
+Thank you for choosing RoyalStay for your luxury stay.
 
-Contact Support: support@sirinilaya.com
-Manage Booking: www.sirinilaya.com/bookings
+Contact Support: support@RoyalStay.com
+Manage Booking: www.RoyalStay.com/bookings
   `.trim();
 };
 
@@ -531,13 +531,13 @@ export const handleBookingConfirmation = async (bookingId) => {
 export const testEmailConfiguration = async () => {
   try {
     console.log("🧪 Testing email configuration...");
-    
+
     const transporter = createTransporter();
     await transporter.verify();
-    
+
     console.log("✅ Email configuration is valid");
     return { success: true, message: "Email configuration is working" };
-    
+
   } catch (error) {
     console.error("❌ Email configuration test failed:", error);
     return { success: false, error: error.message };

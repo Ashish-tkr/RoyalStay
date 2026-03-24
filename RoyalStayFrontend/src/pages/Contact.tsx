@@ -10,7 +10,7 @@ const contactInfo = [
   {
     icon: Mail,
     title: 'Email Us',
-    info: 'hello@sirinilaya.com',
+    info: 'hello@RoyalStay.com',
     description: 'Send us an email anytime'
   },
   {
@@ -47,42 +47,42 @@ const Contact = () => {
   };
 
 
-const handleSubmit = async (e: any) => {
-  e.preventDefault();
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
 
 
-  try {
-    const res = await fetch("http://localhost:5000/auth/send-message", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    });
-
-    const data = await res.json();
-    if (data.success) {
-      alert("✅ Message sent successfully!");
-      setFormData({
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-        subject: '',
-        message: ''
+    try {
+      const res = await fetch("http://localhost:5000/auth/send-message", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
       });
-    } else {
-      alert("❌ Failed to send message");
+
+      const data = await res.json();
+      if (data.success) {
+        alert("✅ Message sent successfully!");
+        setFormData({
+          firstName: '',
+          lastName: '',
+          email: '',
+          phone: '',
+          subject: '',
+          message: ''
+        });
+      } else {
+        alert("❌ Failed to send message");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("⚠️ Something went wrong");
     }
-  } catch (error) {
-    console.error(error);
-    alert("⚠️ Something went wrong");
-  }
-};
+  };
 
 
   return (
     <div className="min-h-screen bg-luxury-950">
       <Navbar />
-      
+
       {/* Header Section */}
       <section className="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center">
@@ -100,7 +100,7 @@ const handleSubmit = async (e: any) => {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
             {contactInfo.map((item, index) => (
-              <div 
+              <div
                 key={item.title}
                 className="luxury-card p-6 rounded-xl text-center hover-lift animate-scale-in"
                 style={{ animationDelay: `${index * 0.1}s` }}
@@ -211,7 +211,7 @@ const handleSubmit = async (e: any) => {
                     rows={6}
                     className="w-full px-4 py-3 bg-luxury-800 border border-luxury-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-royal-400 resize-none"
                     placeholder="Tell us how we can help you..."
-                  ></textarea> 
+                  ></textarea>
                 </div>
 
                 <Button
@@ -237,7 +237,7 @@ const handleSubmit = async (e: any) => {
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="Sirinilaya Location"
+                  title="RoyalStay Location"
                 ></iframe>
               </div>
 
@@ -247,7 +247,7 @@ const handleSubmit = async (e: any) => {
                 <div className="space-y-3">
                   <div className="flex items-center">
                     <Mail className="w-5 h-5 text-royal-400 mr-3" />
-                    <span className="text-gray-300">hello@sirinilaya.com</span>
+                    <span className="text-gray-300">hello@RoyalStay.com</span>
                   </div>
                   <div className="flex items-center">
                     <Phone className="w-5 h-5 text-royal-400 mr-3" />

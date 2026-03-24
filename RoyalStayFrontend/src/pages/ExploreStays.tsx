@@ -3,15 +3,15 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { 
-  Search, 
-  MapPin, 
-  Star, 
-  Home, 
-  Filter, 
-  X, 
-  Check, 
-  CalendarIcon, 
+import {
+  Search,
+  MapPin,
+  Star,
+  Home,
+  Filter,
+  X,
+  Check,
+  CalendarIcon,
   Tag,
   Copy,
   Clock,
@@ -70,7 +70,7 @@ interface Apartment {
   hasSpa?: boolean; // Optional additional amenities
   createdAt?: Date;
   updatedAt?: Date;
-    __v: number;
+  __v: number;
   // We'll add these computed fields
   minPrice?: number;
   minBasePrice?: number;
@@ -98,7 +98,7 @@ interface ApartmentFormData {
 const stays = [
   {
     id: 1,
-    name: 'Sirinilaya Beachfront Apartments',
+    name: 'RoyalStay Beachfront Apartments',
     location: 'Banglore, India',
     price: 1500,
     originalPrice: 1800,
@@ -116,7 +116,7 @@ const stays = [
   },
   {
     id: 2,
-    name: 'Sirinilaya Mountain View Residences',
+    name: 'RoyalStay Mountain View Residences',
     location: 'Banglore, India',
     price: 1250,
     originalPrice: 1500,
@@ -133,7 +133,7 @@ const stays = [
   },
   {
     id: 3,
-    name: 'Sirinilaya Heritage Apartments', 
+    name: 'RoyalStay Heritage Apartments',
     location: 'Banglore, India',
     price: 1800,
     originalPrice: 2200,
@@ -150,7 +150,7 @@ const stays = [
   },
   {
     id: 4,
-    name: 'Sirinilaya Coastal Residences',  
+    name: 'RoyalStay Coastal Residences',
     location: 'Banglore, India',
     price: 1400,
     originalPrice: 1700,
@@ -167,7 +167,7 @@ const stays = [
   },
   {
     id: 5,
-    name: 'Sirinilaya Hill View Apartments',
+    name: 'RoyalStay Hill View Apartments',
     location: 'Banglore, India',
     price: 950,
     originalPrice: 1200,
@@ -184,9 +184,9 @@ const stays = [
   },
   {
     id: 6,
-    name: 'Sirinilaya Urban Luxury Apartments',
+    name: 'RoyalStay Urban Luxury Apartments',
     location: 'Banglore, India',
-    price: 2000, 
+    price: 2000,
     originalPrice: 2500,
     rating: 4.9,
     reviews: 234,
@@ -205,11 +205,11 @@ const stays = [
 const moreStays = [
   {
     id: 7,
-    name: 'Sirinilaya Lakeside Apartments',
+    name: 'RoyalStay Lakeside Apartments',
     location: 'Banglore, India',
     price: 1750,
     originalPrice: 2200,
-    rating: 4.9,    
+    rating: 4.9,
     reviews: 178,
     image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
     amenities: ['Single/2BHK/3BHK', 'Restaurant', 'Gym', 'Pool', 'WiFi'],
@@ -222,7 +222,7 @@ const moreStays = [
   },
   {
     id: 8,
-    name: 'Sirinilaya Himalayan Residences',
+    name: 'RoyalStay Himalayan Residences',
     location: 'Banglore, India',
     price: 1350,
     originalPrice: 1600,
@@ -239,7 +239,7 @@ const moreStays = [
   },
   {
     id: 9,
-    name: 'Sirinilaya Backwater Apartments',
+    name: 'RoyalStay Backwater Apartments',
     location: 'Banglore, India',
     price: 1200,
     originalPrice: 1500,
@@ -269,12 +269,12 @@ const availableCoupons = [
   { code: 'LUXURY5000', discount: 5000, type: 'fixed' },
   { code: 'MONSOON40', discount: 40, type: 'percent' }
 
-  
+
 ];
 
 const ExploreStays = () => {
 
-   
+
   const [apartments, setApartments] = useState<Apartment[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -300,8 +300,8 @@ const ExploreStays = () => {
     from: new Date(),
     to: addDays(new Date(), 7)
   });
-const [isDetailsDialogOpen, setIsDetailsDialogOpen] = useState(false);
-const [selectedApartment, setSelectedApartment] = useState(null);
+  const [isDetailsDialogOpen, setIsDetailsDialogOpen] = useState(false);
+  const [selectedApartment, setSelectedApartment] = useState(null);
 
 
   useEffect(() => {
@@ -312,15 +312,15 @@ const [selectedApartment, setSelectedApartment] = useState(null);
           throw new Error('Failed to fetch apartments');
         }
         const data: Apartment[] = await response.json();
-        
+
         // Process data to find minimum priced flat for each apartment
         const processedData = data.map(apartment => {
           if (apartment.flats && apartment.flats.length > 0) {
             // Find the flat with the minimum price
-            const cheapestFlat = apartment.flats.reduce((minFlat, currentFlat) => 
+            const cheapestFlat = apartment.flats.reduce((minFlat, currentFlat) =>
               currentFlat.price < minFlat.price ? currentFlat : minFlat
             );
-            
+
             return {
               ...apartment,
               minPrice: cheapestFlat.price,
@@ -328,11 +328,11 @@ const [selectedApartment, setSelectedApartment] = useState(null);
               cheapestFlat
             };
           }
-          
+
           // Return apartment unchanged if no flats
           return apartment;
         });
-        
+
         setApartments(processedData);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'An error occurred');
@@ -344,7 +344,7 @@ const [selectedApartment, setSelectedApartment] = useState(null);
     fetchApartments();
   }, []);
 
-  
+
   // Countdown timer state
   const [timeLeft, setTimeLeft] = useState({
     hours: 23,
@@ -356,7 +356,7 @@ const [selectedApartment, setSelectedApartment] = useState(null);
   const [showOfferDialog, setShowOfferDialog] = useState(false);
   const [selectedOffer, setSelectedOffer] = useState<any>(null);
   const [copySuccess, setCopySuccess] = useState(false);
-  
+
   // Animation states
   const [showSuccessAnimation, setShowSuccessAnimation] = useState(false);
   const [claimedOffer, setClaimedOffer] = useState<any>(null);
@@ -370,7 +370,7 @@ const [selectedApartment, setSelectedApartment] = useState(null);
     const timer = setInterval(() => {
       setTimeLeft(prevTime => {
         let { hours, minutes, seconds } = prevTime;
-        
+
         if (seconds > 0) {
           seconds--;
         } else if (minutes > 0) {
@@ -386,7 +386,7 @@ const [selectedApartment, setSelectedApartment] = useState(null);
           minutes = 59;
           seconds = 59;
         }
-        
+
         return { hours, minutes, seconds };
       });
     }, 1000);
@@ -400,7 +400,7 @@ const [selectedApartment, setSelectedApartment] = useState(null);
   // Handle offer actions
   const handleOfferAction = (offerType: string, actionType: string) => {
     let offerData = {};
-    
+
     switch (offerType) {
       case 'earlybird':
         offerData = {
@@ -448,7 +448,7 @@ const [selectedApartment, setSelectedApartment] = useState(null);
         };
         break;
     }
-    
+
     setSelectedOffer(offerData);
     setShowOfferDialog(true);
   };
@@ -476,10 +476,10 @@ const [selectedApartment, setSelectedApartment] = useState(null);
       try {
         // Copy coupon code to clipboard
         await navigator.clipboard.writeText(selectedOffer.couponCode);
-        
+
         // Auto-apply the coupon code
         setCouponCode(selectedOffer.couponCode);
-        
+
         // Set claimed offer for animation with phone display style
         setClaimedOffer({
           ...selectedOffer,
@@ -489,35 +489,35 @@ const [selectedApartment, setSelectedApartment] = useState(null);
           claimId: `SC${Math.floor(100000 + Math.random() * 900000)}`, // Generate random claim ID
           expiryDate: new Date(new Date().setDate(new Date().getDate() + 30)) // 30 days validity
         });
-        
+
         // Close dialog and show success animation
         setShowOfferDialog(false);
         setShowSuccessAnimation(true);
-        
+
         // Hide animation after 6 seconds
         setTimeout(() => {
           setShowSuccessAnimation(false);
           setClaimedOffer(null);
         }, 6000);
-        
+
       } catch (err) {
         // Fallback if clipboard API fails
         setCouponCode(selectedOffer.couponCode);
-        
+
         // Set claimed offer for animation (without copy confirmation)
         setClaimedOffer({
           ...selectedOffer,
           copied: false,
           usePhoneStyle: true,
           claimTime: new Date(),
-          claimId:` SC${Math.floor(100000 + Math.random() * 900000)}`, // Generate random claim ID
+          claimId: ` SC${Math.floor(100000 + Math.random() * 900000)}`, // Generate random claim ID
           expiryDate: new Date(new Date().setDate(new Date().getDate() + 30)) // 30 days validity
         });
-        
+
         // Close dialog and show success animation
         setShowOfferDialog(false);
         setShowSuccessAnimation(true);
-        
+
         // Hide animation after 6 seconds
         setTimeout(() => {
           setShowSuccessAnimation(false);
@@ -551,7 +551,7 @@ const [selectedApartment, setSelectedApartment] = useState(null);
   // Apply all filters
   const applyFilters = () => {
     let filtered = [...allStays];
-    
+
     // Apply price filter
     if (priceFilter === 'low') {
       filtered = filtered.filter(stay => stay.price < 12000);
@@ -560,27 +560,27 @@ const [selectedApartment, setSelectedApartment] = useState(null);
     } else if (priceFilter === 'high') {
       filtered = filtered.filter(stay => stay.price >= 18000);
     }
-    
+
     // Apply location filter
     if (locationFilter !== 'all') {
-      filtered = filtered.filter(stay => 
+      filtered = filtered.filter(stay =>
         stay.location.toLowerCase().includes(locationFilter.toLowerCase())
       );
     }
-    
+
     // Apply BHK filter
     if (bhkFilter !== 'all') {
-      filtered = filtered.filter(stay => 
+      filtered = filtered.filter(stay =>
         stay.bhkOptions.includes(bhkFilter)
       );
     }
-    
+
     // Apply search query
     if (searchQuery.trim() !== '') {
-      filtered = filtered.filter(stay => 
+      filtered = filtered.filter(stay =>
         stay.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         stay.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        stay.amenities.some(amenity => 
+        stay.amenities.some(amenity =>
           amenity.toLowerCase().includes(searchQuery.toLowerCase())
         ) ||
         stay.bhkOptions.some(bhk =>
@@ -588,32 +588,32 @@ const [selectedApartment, setSelectedApartment] = useState(null);
         )
       );
     }
-    
+
     setFilteredStays(filtered);
   };
 
   const handlePriceFilter = (range: string) => {
     setPriceFilter(range);
   };
-  
+
   const handleBhkFilter = (bhk: string) => {
     setBhkFilter(bhk);
   };
-  
+
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
   };
-  
+
   const handleLoadMore = () => {
     setShowMoreStays(true);
   };
-  
+
   const handleViewProperty = (property: any) => {
     console.log(property);
     setSelectedProperty(property);
     setIsDetailsDialogOpen(true);
   };
-  
+
   const handleBookNow = (apartment: Apartment) => {
     // Open the booking dialog with apartment data only
     openBooking({
@@ -627,20 +627,20 @@ const [selectedApartment, setSelectedApartment] = useState(null);
       // Don't pass a specific flat - let user choose in RoomSelectionModal
     });
   };
-  
+
   const handleRoomTypeChange = (roomType: string) => {
     setSelectedRoomType(roomType);
     setBookingPrice(calculateTotalPrice(roomType));
   };
-  
+
   // Calculate original total without any discount
   const calculateOriginalTotal = (roomType?: string) => {
     const type = roomType || selectedRoomType;
     if (!dateRange.from || !dateRange.to || !roomTypePrices[type]) return roomTypePrices[type];
-    
+
     // Calculate number of nights
     const nights = Math.ceil((dateRange.to.getTime() - dateRange.from.getTime()) / (1000 * 60 * 60 * 24));
-    
+
     // Calculate base total (per night * nights)
     return roomTypePrices[type] * nights;
   };
@@ -648,10 +648,10 @@ const [selectedApartment, setSelectedApartment] = useState(null);
   // Calculate discount amount based on per-night rate
   const calculateDiscountAmount = () => {
     if (!appliedCoupon || !dateRange.from || !dateRange.to) return 0;
-    
+
     const perNightRate = roomTypePrices[selectedRoomType];
     const nights = Math.ceil((dateRange.to.getTime() - dateRange.from.getTime()) / (1000 * 60 * 60 * 24));
-    
+
     if (appliedCoupon.type === 'percent') {
       // Calculate percentage discount on per-night rate, then multiply by nights
       const discountPerNight = (perNightRate * appliedCoupon.discount) / 100;
@@ -672,30 +672,30 @@ const [selectedApartment, setSelectedApartment] = useState(null);
     // Reset previous messages
     setCouponError('');
     setCouponSuccess('');
-    
+
     // Check if coupon exists
     const coupon = availableCoupons.find(
       c => c.code.toLowerCase() === couponCode.toLowerCase()
     );
-    
+
     if (!coupon) {
       setCouponError('Invalid coupon code');
       return;
     }
-    
+
     // Apply discount
     setAppliedCoupon(coupon);
-    
+
     // Update booking price
     setBookingPrice(calculateTotalPrice());
-    
+
     if (coupon.type === 'percent') {
       setCouponSuccess(`${coupon.discount}% discount applied!`);
     } else {
       setCouponSuccess(`₹${coupon.discount.toLocaleString()} discount applied!`);
     }
   };
-  
+
   const handleRemoveCoupon = () => {
     setAppliedCoupon(null);
     setCouponCode('');
@@ -703,18 +703,18 @@ const [selectedApartment, setSelectedApartment] = useState(null);
     setCouponSuccess('');
     setBookingPrice(calculateTotalPrice());
   };
-  
+
   // Update booking price whenever date range changes
   useEffect(() => {
     if (bookingStay) {
       setBookingPrice(calculateTotalPrice());
     }
   }, [dateRange]);
-  
+
   const handleCompleteBooking = () => {
     // In a real app, this would submit the booking to a backend
     const nights = Math.ceil((dateRange.to!.getTime() - dateRange.from!.getTime()) / (1000 * 60 * 60 * 24));
-    
+
     // Create booking confirmation details
     setBookingConfirmationDetails({
       property: bookingStay,
@@ -730,11 +730,11 @@ const [selectedApartment, setSelectedApartment] = useState(null);
       bookingTime: new Date(),
       confirmationNumber: Math.random().toString(36).substring(2, 10).toUpperCase()
     });
-    
+
     // Close dialog and show confirmation animation
     setShowCouponDialog(false);
     setShowBookingConfirmation(true);
-    
+
     // Auto-hide confirmation after 8 seconds
     setTimeout(() => {
       setShowBookingConfirmation(false);
@@ -744,11 +744,11 @@ const [selectedApartment, setSelectedApartment] = useState(null);
   };
 
 
-  
+
   return (
     <div className="min-h-screen bg-luxury-950">
       <Navbar />
-      
+
       {/* Header Section */}
       <section className="pt-24 pb-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
@@ -773,7 +773,7 @@ const [selectedApartment, setSelectedApartment] = useState(null);
                 className="w-full pl-10 pr-4 py-3 bg-luxury-800 border border-luxury-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-royal-400"
               />
             </div>
-            
+
             <div className="flex gap-2 flex-wrap">
               <select
                 value={priceFilter}
@@ -785,7 +785,7 @@ const [selectedApartment, setSelectedApartment] = useState(null);
                 <option value="mid">₹12,000 - ₹18,000</option>
                 <option value="high">Above ₹18,000</option>
               </select>
-              
+
               <select
                 value={bhkFilter}
                 onChange={(e) => handleBhkFilter(e.target.value)}
@@ -797,7 +797,7 @@ const [selectedApartment, setSelectedApartment] = useState(null);
                 <option value="2BHK">2 BHK Only</option>
                 <option value="3BHK">3 BHK Only</option>
               </select>
-              
+
               <Button variant="outline" size="sm" className="border-royal-400 text-royal-400">
                 <Filter className="w-4 h-4 mr-2" />
                 More Filters
@@ -923,9 +923,9 @@ const [selectedApartment, setSelectedApartment] = useState(null);
       </section>
 
       {/* Stays Grid */}
-      <section 
-      id = "stays-section"
-      className="pb-20 px-4 sm:px-6 lg:px-8">
+      <section
+        id="stays-section"
+        className="pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-8">
             <p className="text-royal-300 flex items-center justify-center gap-2">
@@ -935,14 +935,14 @@ const [selectedApartment, setSelectedApartment] = useState(null);
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {apartments.map((stay, index) => (
-              <div 
+              <div
                 key={stay._id}
                 className="luxury-card rounded-xl overflow-hidden hover-lift group animate-scale-in cursor-pointer"
                 style={{ animationDelay: `${index * 0.1}s` }}
                 onClick={() => handleViewProperty(stay)}
               >
                 <div className="relative overflow-hidden">
-                  <img 
+                  <img
                     src={stay.coverImage}
                     alt={stay.name}
                     className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
@@ -966,20 +966,20 @@ const [selectedApartment, setSelectedApartment] = useState(null);
                     <Home className="w-4 h-4 text-royal-400" />
                     <p className="text-gray-300 text-sm">
                       Available as:    {stay.flats.map((flat) => (
-                      <span 
-                        key={flat._id}
-                        className='mx-1'
-                      >
-                        {flat.type}
-                      </span>
-                    ))}
+                        <span
+                          key={flat._id}
+                          className='mx-1'
+                        >
+                          {flat.type}
+                        </span>
+                      ))}
                     </p>
                   </div>
                   <p className="text-gray-400 text-sm mb-4">{stay.reviews} reviews</p>
-                  
+
                   <div className="flex flex-wrap gap-2 mb-4">
-                      {stay.flats.map((flat) => (
-                      <span 
+                    {stay.flats.map((flat) => (
+                      <span
                         key={flat._id}
                         className="px-3 py-1 bg-royal-900/30 text-royal-300 text-xs rounded-full border border-royal-700"
                       >
@@ -1009,7 +1009,7 @@ const [selectedApartment, setSelectedApartment] = useState(null);
                       <span className="text-gray-400 text-sm">/night</span>
                     </div>
                     <div className="flex gap-2">
-                      <Button 
+                      <Button
                         size="sm"
                         variant="outline"
                         className="border-royal-400 text-royal-400 hover:bg-royal-400/20"
@@ -1020,7 +1020,7 @@ const [selectedApartment, setSelectedApartment] = useState(null);
                       >
                         View Details
                       </Button>
-                      <Button 
+                      <Button
                         size="sm"
                         className="bg-royal-gradient hover:shadow-lg hover:shadow-royal-500/25 transition-all duration-300"
                         onClick={(e) => {
@@ -1039,7 +1039,7 @@ const [selectedApartment, setSelectedApartment] = useState(null);
 
           {/* Load More Button */}
           <div className="text-center mt-12">
-            <Button 
+            <Button
               variant="outline"
               size="lg"
               className="border-royal-400 text-royal-400 hover:bg-royal-400 hover:text-luxury-950 px-8 py-4 h-auto font-semibold"
@@ -1056,11 +1056,11 @@ const [selectedApartment, setSelectedApartment] = useState(null);
 
       {/* Property Details Modal */}
       {selectedProperty && (
-<ApartmentDetailsDialog
-  open={isDetailsDialogOpen}
-  onOpenChange={setIsDetailsDialogOpen}
-  apartment={selectedProperty}
-/>
+        <ApartmentDetailsDialog
+          open={isDetailsDialogOpen}
+          onOpenChange={setIsDetailsDialogOpen}
+          apartment={selectedProperty}
+        />
       )}
 
       {/* Booking Dialog with Coupon System */}
@@ -1071,7 +1071,7 @@ const [selectedApartment, setSelectedApartment] = useState(null);
             <div className="flex items-center justify-between px-6 py-3 bg-gradient-to-r from-royal-600/20 to-purple-600/20 rounded-t-3xl border-b border-royal-500/20">
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                <span className="text-xs text-gray-300">Sirinilaya Booking</span>
+                <span className="text-xs text-gray-300">RoyalStay Booking</span>
               </div>
               <div className="flex items-center gap-1">
                 <div className="w-1 h-1 bg-white/60 rounded-full"></div>
@@ -1094,8 +1094,8 @@ const [selectedApartment, setSelectedApartment] = useState(null);
               <div className="bg-gradient-to-r from-royal-900/40 to-purple-900/40 rounded-2xl p-4 border border-royal-500/20 shadow-lg">
                 <div className="flex items-center gap-3">
                   <div className="relative">
-                    <img 
-                      src={bookingStay.image} 
+                    <img
+                      src={bookingStay.image}
                       alt={bookingStay.name}
                       className="w-16 h-16 rounded-xl object-cover ring-2 ring-royal-400/30"
                     />
@@ -1128,8 +1128,8 @@ const [selectedApartment, setSelectedApartment] = useState(null);
                       key={option}
                       size="sm"
                       variant={selectedRoomType === option ? "default" : "outline"}
-                      className={selectedRoomType === option 
-                        ? "bg-gradient-to-r from-royal-600 to-purple-600 hover:from-royal-700 hover:to-purple-700 text-xs font-medium border-0 shadow-lg shadow-royal-500/30" 
+                      className={selectedRoomType === option
+                        ? "bg-gradient-to-r from-royal-600 to-purple-600 hover:from-royal-700 hover:to-purple-700 text-xs font-medium border-0 shadow-lg shadow-royal-500/30"
                         : "border-royal-500/30 text-gray-300 hover:bg-royal-900/50 hover:border-royal-400/50 text-xs backdrop-blur-sm"}
                       onClick={() => handleRoomTypeChange(option)}
                     >
@@ -1182,7 +1182,7 @@ const [selectedApartment, setSelectedApartment] = useState(null);
                       />
                     </PopoverContent>
                   </Popover>
-                  
+
                   {dateRange?.from && dateRange?.to && (
                     <div className="flex items-center justify-between bg-royal-900/30 rounded-xl p-2 border border-royal-500/20">
                       <span className="text-xs text-gray-300">Duration:</span>
@@ -1200,7 +1200,7 @@ const [selectedApartment, setSelectedApartment] = useState(null);
                   <span className="text-sm text-gray-300">💰 {selectedRoomType} Rate</span>
                   <span className="text-sm font-medium text-royal-300">₹{roomTypePrices[selectedRoomType]?.toLocaleString()}/night</span>
                 </div>
-                
+
                 {dateRange?.from && dateRange?.to && (
                   <div className="flex justify-between items-center py-2 border-t border-royal-500/20">
                     <span className="text-sm text-gray-300">🌙 Duration</span>
@@ -1226,7 +1226,7 @@ const [selectedApartment, setSelectedApartment] = useState(null);
                         placeholder="🎫 Enter promo code"
                         className="flex-1 px-4 py-3 bg-royal-900/30 border border-royal-500/30 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-royal-400 focus:bg-royal-900/50 text-sm backdrop-blur-sm"
                       />
-                      <Button 
+                      <Button
                         size="sm"
                         onClick={handleApplyCoupon}
                         className="bg-gradient-to-r from-royal-600 to-purple-600 hover:from-royal-700 hover:to-purple-700 text-xs font-medium px-4 rounded-xl shadow-lg shadow-royal-500/30"
@@ -1244,14 +1244,14 @@ const [selectedApartment, setSelectedApartment] = useState(null);
                           <span className="font-medium text-sm text-green-300">🎫 {appliedCoupon.code}</span>
                         </div>
                         <p className="text-xs text-green-400 mt-1">
-                          💰 {appliedCoupon.type === 'percent' 
-                            ? `${appliedCoupon.discount}% off` 
+                          💰 {appliedCoupon.type === 'percent'
+                            ? `${appliedCoupon.discount}% off`
                             : `₹${appliedCoupon.discount.toLocaleString()} off`}
                         </p>
                       </div>
-                      <Button 
-                        variant="ghost" 
-                        size="sm" 
+                      <Button
+                        variant="ghost"
+                        size="sm"
                         onClick={handleRemoveCoupon}
                         className="text-gray-400 hover:text-white hover:bg-red-500/20 rounded-lg"
                       >
@@ -1265,7 +1265,7 @@ const [selectedApartment, setSelectedApartment] = useState(null);
                       <p className="text-red-400 text-xs">❌ {couponError}</p>
                     </div>
                   )}
-                  
+
                   {couponSuccess && (
                     <div className="bg-green-900/20 border border-green-500/30 rounded-xl p-2 mt-2">
                       <p className="text-green-400 text-xs">✅ {couponSuccess}</p>
@@ -1288,7 +1288,7 @@ const [selectedApartment, setSelectedApartment] = useState(null);
                           ₹{roomTypePrices[selectedRoomType]?.toLocaleString()}/night
                         </span>
                       </div>
-                      
+
                       {/* Number of Nights */}
                       <div className="flex justify-between items-center">
                         <span className="text-sm text-gray-300">🌙 Duration</span>
@@ -1296,7 +1296,7 @@ const [selectedApartment, setSelectedApartment] = useState(null);
                           {Math.ceil((dateRange.to.getTime() - dateRange.from.getTime()) / (1000 * 60 * 60 * 24))} nights
                         </span>
                       </div>
-                      
+
                       {/* Original Total */}
                       <div className="flex justify-between items-center border-t border-royal-400/20 pt-2">
                         <span className="text-sm text-gray-300">💰 Subtotal</span>
@@ -1304,7 +1304,7 @@ const [selectedApartment, setSelectedApartment] = useState(null);
                           ₹{calculateOriginalTotal().toLocaleString()}
                         </span>
                       </div>
-                      
+
                       {/* Discount Amount */}
                       <div className="flex justify-between items-center">
                         <span className="text-sm text-green-400">
@@ -1319,7 +1319,7 @@ const [selectedApartment, setSelectedApartment] = useState(null);
                           -₹{Math.floor(calculateDiscountAmount()).toLocaleString()}
                         </span>
                       </div>
-                      
+
                       {/* Final Price */}
                       <div className="flex justify-between items-center border-t border-royal-400/30 pt-2">
                         <span className="text-sm font-medium text-royal-300">💳 Final Amount</span>
@@ -1327,7 +1327,7 @@ const [selectedApartment, setSelectedApartment] = useState(null);
                           ₹{bookingPrice.toLocaleString()}
                         </span>
                       </div>
-                      
+
                       {/* Savings Badge */}
                       <div className="bg-gradient-to-r from-green-900/30 to-emerald-900/30 rounded-lg p-2 border border-green-500/30">
                         <div className="text-center">
@@ -1357,15 +1357,15 @@ const [selectedApartment, setSelectedApartment] = useState(null);
             {/* Phone-style Footer */}
             <div className="sticky bottom-0 bg-gradient-to-r from-luxury-900/95 to-luxury-800/95 backdrop-blur-md px-6 py-4 border-t border-royal-500/20 rounded-b-3xl">
               <div className="flex gap-3">
-                <Button 
-                  variant="outline" 
+                <Button
+                  variant="outline"
                   size="sm"
                   onClick={() => setShowCouponDialog(false)}
                   className="flex-1 border-royal-500/30 text-gray-300 hover:bg-royal-900/50 hover:border-royal-400/50 text-xs rounded-xl backdrop-blur-sm"
                 >
                   ❌ Cancel
                 </Button>
-                <Button 
+                <Button
                   size="sm"
                   onClick={handleCompleteBooking}
                   className="flex-2 bg-gradient-to-r from-royal-600 to-purple-600 hover:from-royal-700 hover:to-purple-700 text-xs font-medium rounded-xl shadow-lg shadow-royal-500/30"
@@ -1378,636 +1378,636 @@ const [selectedApartment, setSelectedApartment] = useState(null);
         </Dialog>
       )}
 
-             {/* Offers Dialog - Phone Style */}
-       {showOfferDialog && (
-         <Dialog open={showOfferDialog} onOpenChange={setShowOfferDialog}>
-           <DialogContent className="bg-gradient-to-br from-luxury-900 via-luxury-800 to-luxury-900 border-2 border-royal-500/30 text-white max-w-md max-h-[90vh] overflow-hidden rounded-3xl shadow-2xl shadow-royal-500/20">
-             {/* Phone-like Status Bar */}
-             <div className="flex items-center justify-between px-6 py-3 bg-gradient-to-r from-royal-600/20 to-purple-600/20 rounded-t-3xl border-b border-royal-500/20">
-               <div className="flex items-center gap-2">
-                 <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                 <span className="text-xs text-gray-300">Sirinilaya Offers</span>
-               </div>
-               <div className="flex items-center gap-1">
-                 <div className="w-1 h-1 bg-white/60 rounded-full"></div>
-                 <div className="w-1 h-1 bg-white/60 rounded-full"></div>
-                 <div className="w-1 h-1 bg-white/60 rounded-full"></div>
-               </div>
-             </div>
+      {/* Offers Dialog - Phone Style */}
+      {showOfferDialog && (
+        <Dialog open={showOfferDialog} onOpenChange={setShowOfferDialog}>
+          <DialogContent className="bg-gradient-to-br from-luxury-900 via-luxury-800 to-luxury-900 border-2 border-royal-500/30 text-white max-w-md max-h-[90vh] overflow-hidden rounded-3xl shadow-2xl shadow-royal-500/20">
+            {/* Phone-like Status Bar */}
+            <div className="flex items-center justify-between px-6 py-3 bg-gradient-to-r from-royal-600/20 to-purple-600/20 rounded-t-3xl border-b border-royal-500/20">
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                <span className="text-xs text-gray-300">RoyalStay Offers</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <div className="w-1 h-1 bg-white/60 rounded-full"></div>
+                <div className="w-1 h-1 bg-white/60 rounded-full"></div>
+                <div className="w-1 h-1 bg-white/60 rounded-full"></div>
+              </div>
+            </div>
 
-             <DialogHeader className="sticky top-0 bg-gradient-to-r from-luxury-900/95 to-luxury-800/95 backdrop-blur-md z-10 px-6 py-4 border-b border-royal-500/20">
-               <DialogTitle className="text-xl font-bold bg-gradient-to-r from-royal-400 to-purple-400 bg-clip-text text-transparent">
-                 🎯 {selectedOffer?.title}
-               </DialogTitle>
-               <DialogDescription className="text-gray-300 text-sm">
-                 {selectedOffer?.description}
-               </DialogDescription>
-             </DialogHeader>
+            <DialogHeader className="sticky top-0 bg-gradient-to-r from-luxury-900/95 to-luxury-800/95 backdrop-blur-md z-10 px-6 py-4 border-b border-royal-500/20">
+              <DialogTitle className="text-xl font-bold bg-gradient-to-r from-royal-400 to-purple-400 bg-clip-text text-transparent">
+                🎯 {selectedOffer?.title}
+              </DialogTitle>
+              <DialogDescription className="text-gray-300 text-sm">
+                {selectedOffer?.description}
+              </DialogDescription>
+            </DialogHeader>
 
-             <div className="px-6 py-4 space-y-4 overflow-y-auto max-h-[calc(90vh-200px)]">
-               {/* Discount Badge - Phone Style */}
-               <div className="text-center">
-                 <div className="inline-flex items-center bg-gradient-to-r from-royal-600 to-purple-600 text-white px-8 py-4 rounded-2xl text-3xl font-bold mb-4 shadow-lg shadow-royal-500/30 animate-pulse">
-                   <Gift className="w-8 h-8 mr-3" />
-                   {selectedOffer?.discount}
-                 </div>
-               </div>
+            <div className="px-6 py-4 space-y-4 overflow-y-auto max-h-[calc(90vh-200px)]">
+              {/* Discount Badge - Phone Style */}
+              <div className="text-center">
+                <div className="inline-flex items-center bg-gradient-to-r from-royal-600 to-purple-600 text-white px-8 py-4 rounded-2xl text-3xl font-bold mb-4 shadow-lg shadow-royal-500/30 animate-pulse">
+                  <Gift className="w-8 h-8 mr-3" />
+                  {selectedOffer?.discount}
+                </div>
+              </div>
 
-               {/* Coupon Code Card - Phone Style */}
-               <div className="bg-gradient-to-r from-royal-900/40 to-purple-900/40 rounded-2xl p-4 border border-royal-500/20 shadow-lg">
-                 <p className="text-sm text-royal-300 mb-2 text-center">Use coupon code:</p>
-                 <div className="bg-royal-900/50 border border-royal-500/30 rounded-xl p-4 text-center">
-                   <div className="flex items-center justify-center gap-3 mb-2">
-                     <span className="text-2xl font-mono font-bold text-royal-300 tracking-wider">
-                       {selectedOffer?.couponCode}
-                     </span>
-                     <Button
-                       variant="outline"
-                       size="sm"
-                       onClick={() => handleCopyCoupon(selectedOffer?.couponCode)}
-                       className="border-royal-400 text-royal-400 hover:bg-royal-400 hover:text-white"
-                     >
-                       {copySuccess ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-                     </Button>
-                   </div>
-                   {copySuccess && (
-                     <p className="text-green-400 text-sm flex items-center justify-center gap-1">
-                       <Check className="w-3 h-3" />
-                       Copied to clipboard!
-                     </p>
-                   )}
-                 </div>
-               </div>
+              {/* Coupon Code Card - Phone Style */}
+              <div className="bg-gradient-to-r from-royal-900/40 to-purple-900/40 rounded-2xl p-4 border border-royal-500/20 shadow-lg">
+                <p className="text-sm text-royal-300 mb-2 text-center">Use coupon code:</p>
+                <div className="bg-royal-900/50 border border-royal-500/30 rounded-xl p-4 text-center">
+                  <div className="flex items-center justify-center gap-3 mb-2">
+                    <span className="text-2xl font-mono font-bold text-royal-300 tracking-wider">
+                      {selectedOffer?.couponCode}
+                    </span>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => handleCopyCoupon(selectedOffer?.couponCode)}
+                      className="border-royal-400 text-royal-400 hover:bg-royal-400 hover:text-white"
+                    >
+                      {copySuccess ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                    </Button>
+                  </div>
+                  {copySuccess && (
+                    <p className="text-green-400 text-sm flex items-center justify-center gap-1">
+                      <Check className="w-3 h-3" />
+                      Copied to clipboard!
+                    </p>
+                  )}
+                </div>
+              </div>
 
-               {/* Instructions Card - Phone Style */}
-               <div className="bg-gradient-to-r from-luxury-900/60 to-luxury-800/60 rounded-2xl p-4 border border-royal-500/20">
-                 <h4 className="font-semibold text-royal-300 mb-3 text-center">How to use this offer:</h4>
-                 <ul className="text-sm text-gray-300 space-y-2">
-                   <li className="flex items-start gap-2">
-                     <div className="w-5 h-5 bg-royal-800 rounded-full flex items-center justify-center text-xs text-royal-300 mt-0.5">1</div>
-                     <span>Select any property from our collection</span>
-                   </li>
-                   <li className="flex items-start gap-2">
-                     <div className="w-5 h-5 bg-royal-800 rounded-full flex items-center justify-center text-xs text-royal-300 mt-0.5">2</div>
-                     <span>Click "Book Now" to start booking process</span>
-                   </li>
-                   <li className="flex items-start gap-2">
-                     <div className="w-5 h-5 bg-royal-800 rounded-full flex items-center justify-center text-xs text-royal-300 mt-0.5">3</div>
-                     <span>Enter the coupon code during checkout</span>
-                   </li>
-                   <li className="flex items-start gap-2">
-                     <div className="w-5 h-5 bg-royal-800 rounded-full flex items-center justify-center text-xs text-royal-300 mt-0.5">4</div>
-                     <span>Enjoy your discounted luxury stay!</span>
-                   </li>
-                 </ul>
-               </div>
+              {/* Instructions Card - Phone Style */}
+              <div className="bg-gradient-to-r from-luxury-900/60 to-luxury-800/60 rounded-2xl p-4 border border-royal-500/20">
+                <h4 className="font-semibold text-royal-300 mb-3 text-center">How to use this offer:</h4>
+                <ul className="text-sm text-gray-300 space-y-2">
+                  <li className="flex items-start gap-2">
+                    <div className="w-5 h-5 bg-royal-800 rounded-full flex items-center justify-center text-xs text-royal-300 mt-0.5">1</div>
+                    <span>Select any property from our collection</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <div className="w-5 h-5 bg-royal-800 rounded-full flex items-center justify-center text-xs text-royal-300 mt-0.5">2</div>
+                    <span>Click "Book Now" to start booking process</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <div className="w-5 h-5 bg-royal-800 rounded-full flex items-center justify-center text-xs text-royal-300 mt-0.5">3</div>
+                    <span>Enter the coupon code during checkout</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <div className="w-5 h-5 bg-royal-800 rounded-full flex items-center justify-center text-xs text-royal-300 mt-0.5">4</div>
+                    <span>Enjoy your discounted luxury stay!</span>
+                  </li>
+                </ul>
+              </div>
 
-               {/* Special Offer Card - Phone Style */}
-               {selectedOffer?.action === 'claim' && (
-                 <div className="bg-gradient-to-r from-green-900/30 to-emerald-900/30 rounded-2xl p-4 border border-green-500/30 shadow-lg">
-                   <div className="flex items-center gap-2 mb-2">
-                     <div className="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg flex items-center justify-center">
-                       <Check className="w-4 h-4 text-white" />
-                     </div>
-                     <span className="font-medium text-green-300">Special Offer</span>
-                   </div>
-                   <p className="text-sm text-gray-300">
-                     This exclusive offer will be automatically applied to your next booking. 
-                     The coupon code has been saved for you!
-                   </p>
-                 </div>
-               )}
+              {/* Special Offer Card - Phone Style */}
+              {selectedOffer?.action === 'claim' && (
+                <div className="bg-gradient-to-r from-green-900/30 to-emerald-900/30 rounded-2xl p-4 border border-green-500/30 shadow-lg">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg flex items-center justify-center">
+                      <Check className="w-4 h-4 text-white" />
+                    </div>
+                    <span className="font-medium text-green-300">Special Offer</span>
+                  </div>
+                  <p className="text-sm text-gray-300">
+                    This exclusive offer will be automatically applied to your next booking.
+                    The coupon code has been saved for you!
+                  </p>
+                </div>
+              )}
 
-               {/* Monsoon Magic Sale Timer - Phone Style */}
-               {selectedOffer?.title === 'Monsoon Magic Sale' && (
-                 <div className="bg-gradient-to-r from-yellow-900/30 to-orange-900/30 rounded-2xl p-4 border border-yellow-500/30 shadow-lg">
-                   <div className="flex items-center gap-2 mb-3">
-                     <div className="w-8 h-8 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-lg flex items-center justify-center">
-                       <Clock className="w-4 h-4 text-white" />
-                     </div>
-                     <span className="font-medium text-yellow-300">Limited Time Offer</span>
-                   </div>
-                   <p className="text-sm text-gray-300 text-center mb-2">
-                     Hurry! This flash sale expires in:
-                   </p>
-                   <div className="text-center">
-                     <span className="inline-block bg-gradient-to-r from-yellow-600 to-orange-600 text-white px-4 py-2 rounded-xl font-mono text-lg font-bold animate-pulse">
-                       {`${formatTime(timeLeft.hours)}:${formatTime(timeLeft.minutes)}:${formatTime(timeLeft.seconds)}`}
-                     </span>
-                   </div>
-                 </div>
-               )}
-             </div>
+              {/* Monsoon Magic Sale Timer - Phone Style */}
+              {selectedOffer?.title === 'Monsoon Magic Sale' && (
+                <div className="bg-gradient-to-r from-yellow-900/30 to-orange-900/30 rounded-2xl p-4 border border-yellow-500/30 shadow-lg">
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="w-8 h-8 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-lg flex items-center justify-center">
+                      <Clock className="w-4 h-4 text-white" />
+                    </div>
+                    <span className="font-medium text-yellow-300">Limited Time Offer</span>
+                  </div>
+                  <p className="text-sm text-gray-300 text-center mb-2">
+                    Hurry! This flash sale expires in:
+                  </p>
+                  <div className="text-center">
+                    <span className="inline-block bg-gradient-to-r from-yellow-600 to-orange-600 text-white px-4 py-2 rounded-xl font-mono text-lg font-bold animate-pulse">
+                      {`${formatTime(timeLeft.hours)}:${formatTime(timeLeft.minutes)}:${formatTime(timeLeft.seconds)}`}
+                    </span>
+                  </div>
+                </div>
+              )}
+            </div>
 
-             {/* Footer - Phone Style */}
-             <div className="sticky bottom-0 bg-gradient-to-r from-luxury-900/95 to-luxury-800/95 backdrop-blur-md p-4 border-t border-royal-500/20 flex gap-3">
-               <Button 
-                 variant="outline" 
-                 onClick={() => setShowOfferDialog(false)}
-                 className="border-gray-600 text-gray-300 hover:bg-gray-700 flex-1"
-               >
-                 Close
-               </Button>
-               <Button 
-                 onClick={handleClaimOffer}
-                 className="bg-gradient-to-r from-royal-600 to-purple-600 hover:from-royal-700 hover:to-purple-700 text-white shadow-lg hover:shadow-royal-500/25 flex-1 font-semibold"
-               >
-                 {selectedOffer?.action === 'claim' ? 'Claim Offer' : 
+            {/* Footer - Phone Style */}
+            <div className="sticky bottom-0 bg-gradient-to-r from-luxury-900/95 to-luxury-800/95 backdrop-blur-md p-4 border-t border-royal-500/20 flex gap-3">
+              <Button
+                variant="outline"
+                onClick={() => setShowOfferDialog(false)}
+                className="border-gray-600 text-gray-300 hover:bg-gray-700 flex-1"
+              >
+                Close
+              </Button>
+              <Button
+                onClick={handleClaimOffer}
+                className="bg-gradient-to-r from-royal-600 to-purple-600 hover:from-royal-700 hover:to-purple-700 text-white shadow-lg hover:shadow-royal-500/25 flex-1 font-semibold"
+              >
+                {selectedOffer?.action === 'claim' ? 'Claim Offer' :
                   selectedOffer?.action === 'book' ? 'Book Now' :
-                  selectedOffer?.action === 'explore' ? 'Explore Deals' : 'View Package'}
-               </Button>
-             </div>
-           </DialogContent>
-         </Dialog>
-       )}
+                    selectedOffer?.action === 'explore' ? 'Explore Deals' : 'View Package'}
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
 
-       {/* Success Animation Overlay */}
-       {showSuccessAnimation && claimedOffer && (
-         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-           {claimedOffer.usePhoneStyle ? (
-             <div className="relative w-full max-w-sm mx-4">
-               {/* Fireworks Animation */}
-               <div className="absolute inset-0 pointer-events-none overflow-hidden">
-                 {/* Firework bursts */}
-                 {[...Array(10)].map((_, i) => (
-                   <div key={`firework-${i}`} className="absolute">
-                     {[...Array(8)].map((_, j) => (
-                       <div
-                         key={`spark-${i}-${j}`}
-                         className="absolute h-1 w-12 origin-left"
-                         style={{
-                           left: `${Math.random() * 100}%`,
-                           top: `${Math.random() * 100}%`,
-                           transform: `rotate(${j * 45}deg)`,
-                           opacity: 0,
-                           animation: `firework-spark 0.6s ease-out ${i * 0.1}s forwards`
-                         }}
-                       >
-                         <div 
-                           className="h-full w-full rounded-full animate-ping"
-                           style={{
-                             background: `linear-gradient(90deg, 
+      {/* Success Animation Overlay */}
+      {showSuccessAnimation && claimedOffer && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+          {claimedOffer.usePhoneStyle ? (
+            <div className="relative w-full max-w-sm mx-4">
+              {/* Fireworks Animation */}
+              <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                {/* Firework bursts */}
+                {[...Array(10)].map((_, i) => (
+                  <div key={`firework-${i}`} className="absolute">
+                    {[...Array(8)].map((_, j) => (
+                      <div
+                        key={`spark-${i}-${j}`}
+                        className="absolute h-1 w-12 origin-left"
+                        style={{
+                          left: `${Math.random() * 100}%`,
+                          top: `${Math.random() * 100}%`,
+                          transform: `rotate(${j * 45}deg)`,
+                          opacity: 0,
+                          animation: `firework-spark 0.6s ease-out ${i * 0.1}s forwards`
+                        }}
+                      >
+                        <div
+                          className="h-full w-full rounded-full animate-ping"
+                          style={{
+                            background: `linear-gradient(90deg, 
                                ${['#FFD700', '#FF6B6B', '#4ECDC4', '#FF8C42', '#A06CD5', '#45B8AC'][i % 6]} 0%, 
                                transparent 100%)`
-                           }}
-                         />
-                       </div>
-                     ))}
-                   </div>
-                 ))}
-                 
-                 {/* Floating stars */}
-                 {[...Array(15)].map((_, i) => (
-                   <div
-                     key={`star-${i}`}
-                     className="absolute w-1 h-1 bg-white rounded-full animate-twinkle"
-                     style={{
-                       left: `${Math.random() * 100}%`,
-                       top: `${Math.random() * 100}%`,
-                       animationDelay: `${Math.random() * 3}s`,
-                       animationDuration: `${1 + Math.random() * 1}s`
-                     }}
-                   />
-                 ))}
-               </div>
+                          }}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                ))}
 
-               {/* Phone-style Success Card - Compact */}
-               <div className="bg-gradient-to-br from-luxury-900 via-luxury-800 to-luxury-900 border-2 border-royal-500/30 rounded-3xl overflow-hidden shadow-2xl shadow-royal-500/20 animate-[zoomInFade_0.8s_ease-out]">
-                 {/* Phone-like Status Bar */}
-                 <div className="flex items-center justify-between px-4 py-2 bg-gradient-to-r from-royal-600/20 to-purple-600/20 rounded-t-3xl border-b border-royal-500/20">
-                   <div className="flex items-center gap-2">
-                     <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                     <span className="text-xs text-gray-300">Sirinilaya Offers</span>
-                   </div>
-                   <div className="flex items-center gap-1">
-                     <div className="w-1 h-1 bg-white/60 rounded-full"></div>
-                     <div className="w-1 h-1 bg-white/60 rounded-full"></div>
-                     <div className="w-1 h-1 bg-white/60 rounded-full"></div>
-                   </div>
-                 </div>
-                 
-                 {/* Header with confetti - Compact */}
-                 <div className="relative bg-gradient-to-r from-royal-600 to-purple-600 py-4 px-6 overflow-hidden">
-                   {/* Animated confetti in header */}
-                   {[...Array(12)].map((_, i) => (
-                     <div
-                       key={`header-confetti-${i}`}
-                       className="absolute w-1.5 h-1.5 rounded-full animate-float-confetti"
-                       style={{
-                         backgroundColor: ['#FFD700', '#FF6B6B', '#4ECDC4', '#FF8C42', '#A06CD5'][i % 5],
-                         left: `${Math.random() * 100}%`,
-                         top: `${Math.random() * 100}%`,
-                         animationDelay: `${Math.random() * 3}s`,
-                         animationDuration: `${2 + Math.random() * 1}s`
-                       }}
-                     />
-                   ))}
-                   
-                   {/* Success checkmark - Smaller */}
-                   <div className="flex items-center justify-center mb-2">
-                     <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg animate-[bounceIn_0.6s_ease-out]">
-                       <Check className="w-7 h-7 text-green-500 animate-[checkmark_0.8s_ease-in-out]" />
-                     </div>
-                   </div>
-                   
-                   <h2 className="text-xl font-bold text-white text-center animate-[fadeInUp_0.8s_ease-out_0.3s_both]">
-                     Offer Claimed!
-                   </h2>
-                   
-                   <div className="text-center mt-1 animate-[fadeInUp_0.8s_ease-out_0.4s_both]">
-                     <span className="inline-block bg-white/20 text-white text-xs py-1 px-2 rounded-full">
-                       ID: {claimedOffer.claimId}
-                     </span>
-                   </div>
-                 </div>
-                 
-                 {/* Offer details - Compact */}
-                 <div className="p-4 animate-[fadeInUp_0.8s_ease-out_0.5s_both]">
-                   <div className="bg-gradient-to-r from-luxury-900/60 to-luxury-800/60 rounded-xl p-3 border border-royal-500/20 mb-3">
-                     <h3 className="font-semibold text-royal-300 text-base mb-1">
-                       {claimedOffer.title}
-                     </h3>
-                     <p className="text-gray-300 text-xs">
-                       {claimedOffer.description}
-                     </p>
-                   </div>
-                   
-                   {/* Coupon Code Card - Compact */}
-                   <div className="bg-gradient-to-r from-royal-900/40 to-purple-900/40 rounded-xl p-3 border border-royal-500/20 shadow-lg mb-3 animate-[fadeInRight_0.5s_ease-out_0.6s_both]">
-                     <div className="flex items-center justify-between mb-1">
-                       <span className="text-xs text-royal-300">Coupon Code</span>
-                       <span className="text-xs text-gray-400">Valid till {format(claimedOffer.expiryDate, "dd MMM")}</span>
-                     </div>
-                     
-                     <div className="bg-royal-900/50 border border-royal-500/30 rounded-lg p-2 text-center">
-                       <div className="font-mono text-lg font-bold text-royal-300 tracking-wider">
-                         {claimedOffer.couponCode}
-                       </div>
-                       {claimedOffer.copied && (
-                         <p className="text-green-400 text-xs mt-1 flex items-center justify-center gap-1">
-                           <Copy className="w-3 h-3" />
-                           Copied!
-                         </p>
-                       )}
-                     </div>
-                   </div>
-                   
-                   {/* Discount Badge - Compact */}
-                   <div className="bg-gradient-to-r from-green-900/30 to-emerald-900/30 rounded-lg p-2 border border-green-500/30 shadow-lg animate-[fadeInRight_0.5s_ease-out_0.7s_both]">
-                     <div className="flex items-center justify-between">
-                       <div className="flex items-center gap-2">
-                         <div className="w-6 h-6 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg flex items-center justify-center">
-                           <Gift className="w-3 h-3 text-white" />
-                         </div>
-                         <span className="text-xs text-green-300">Discount</span>
-                       </div>
-                       <span className="text-base font-bold text-green-300">{claimedOffer.discount}</span>
-                     </div>
-                   </div>
-                 </div>
-                 
-                 {/* Instructions - Compact */}
-                 <div className="bg-royal-900/30 p-4 border-t border-royal-500/20 animate-[fadeInUp_0.8s_ease-out_0.8s_both]">
-                   <h4 className="text-royal-300 font-medium mb-2 text-xs">How to use</h4>
-                   <ol className="space-y-1 text-xs text-gray-300">
-                     <li className="flex items-start gap-2">
-                       <div className="w-4 h-4 bg-royal-800 rounded-full flex items-center justify-center text-xs text-royal-300 mt-0.5">1</div>
-                       <span>Go to booking page</span>
-                     </li>
-                     <li className="flex items-start gap-2">
-                       <div className="w-4 h-4 bg-royal-800 rounded-full flex items-center justify-center text-xs text-royal-300 mt-0.5">2</div>
-                       <span>Enter coupon code</span>
-                     </li>
-                     <li className="flex items-start gap-2">
-                       <div className="w-4 h-4 bg-royal-800 rounded-full flex items-center justify-center text-xs text-royal-300 mt-0.5">3</div>
-                       <span>Enjoy discount!</span>
-                     </li>
-                   </ol>
-                 </div>
-                 
-                 {/* Footer - Compact */}
-                 <div className="p-3 border-t border-royal-500/20 flex justify-between items-center animate-[fadeInUp_0.8s_ease-out_1s_both]">
-                   <div className="text-xs text-gray-400 flex items-center gap-1">
-                     <Clock className="w-3 h-3" />
-                     <span>Auto-closing in 6s</span>
-                   </div>
-                   
-                   <div className="text-royal-300 text-xs">
-                     {format(claimedOffer.claimTime, "dd MMM")}
-                   </div>
-                 </div>
-               </div>
-             </div>
-           ) : (
-             <div className="relative">
-               {/* Confetti Animation */}
-               <div className="absolute inset-0 pointer-events-none">
-                 {[...Array(20)].map((_, i) => (
-                   <div
-                     key={i}
-                     className="absolute w-2 h-2 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full animate-bounce"
-                     style={{
-                       left: `${Math.random() * 100}%`,
-                       top: `${Math.random() * 100}%`,
-                       animationDelay: `${Math.random() * 2}s`,
-                       animationDuration: `${1 + Math.random()}s`
-                     }}
-                   />
-                 ))}
-                 {[...Array(15)].map((_, i) => (
-                   <div
-                     key={i + 20}
-                     className="absolute w-1 h-1 bg-gradient-to-r from-royal-400 to-purple-500 rounded-full animate-ping"
-                     style={{
-                       left: `${Math.random() * 100}%`,
-                       top: `${Math.random() * 100}%`,
-                       animationDelay: `${Math.random() * 3}s`,
-                       animationDuration: `${0.5 + Math.random()}s`
-                     }}
-                   />
-                 ))}
-               </div>
+                {/* Floating stars */}
+                {[...Array(15)].map((_, i) => (
+                  <div
+                    key={`star-${i}`}
+                    className="absolute w-1 h-1 bg-white rounded-full animate-twinkle"
+                    style={{
+                      left: `${Math.random() * 100}%`,
+                      top: `${Math.random() * 100}%`,
+                      animationDelay: `${Math.random() * 3}s`,
+                      animationDuration: `${1 + Math.random() * 1}s`
+                    }}
+                  />
+                ))}
+              </div>
 
-               {/* Main Success Card */}
-               <div className="bg-gradient-to-br from-luxury-800 to-luxury-900 border-2 border-royal-400 rounded-2xl p-8 max-w-md mx-4 text-center transform animate-[slideInUp_0.6s_ease-out] shadow-2xl">
-                 {/* Success Icon with Pulse Animation */}
-                 <div className="relative mb-6">
-                   <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto animate-pulse">
-                     <Check className="w-10 h-10 text-white animate-[checkmark_0.8s_ease-in-out]" />
-                   </div>
-                   <div className="absolute inset-0 w-20 h-20 bg-green-400/30 rounded-full mx-auto animate-ping"></div>
-                 </div>
+              {/* Phone-style Success Card - Compact */}
+              <div className="bg-gradient-to-br from-luxury-900 via-luxury-800 to-luxury-900 border-2 border-royal-500/30 rounded-3xl overflow-hidden shadow-2xl shadow-royal-500/20 animate-[zoomInFade_0.8s_ease-out]">
+                {/* Phone-like Status Bar */}
+                <div className="flex items-center justify-between px-4 py-2 bg-gradient-to-r from-royal-600/20 to-purple-600/20 rounded-t-3xl border-b border-royal-500/20">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                    <span className="text-xs text-gray-300">RoyalStay Offers</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <div className="w-1 h-1 bg-white/60 rounded-full"></div>
+                    <div className="w-1 h-1 bg-white/60 rounded-full"></div>
+                    <div className="w-1 h-1 bg-white/60 rounded-full"></div>
+                  </div>
+                </div>
 
-                 {/* Success Message */}
-                 <h3 className="text-2xl font-bold text-white mb-2 animate-[fadeInUp_0.8s_ease-out_0.2s_both]">
-                   🎉 Offer Claimed Successfully!
-                 </h3>
-                 
-                 <p className="text-gray-300 mb-4 animate-[fadeInUp_0.8s_ease-out_0.4s_both]">
-                   {claimedOffer.title}
-                 </p>
+                {/* Header with confetti - Compact */}
+                <div className="relative bg-gradient-to-r from-royal-600 to-purple-600 py-4 px-6 overflow-hidden">
+                  {/* Animated confetti in header */}
+                  {[...Array(12)].map((_, i) => (
+                    <div
+                      key={`header-confetti-${i}`}
+                      className="absolute w-1.5 h-1.5 rounded-full animate-float-confetti"
+                      style={{
+                        backgroundColor: ['#FFD700', '#FF6B6B', '#4ECDC4', '#FF8C42', '#A06CD5'][i % 5],
+                        left: `${Math.random() * 100}%`,
+                        top: `${Math.random() * 100}%`,
+                        animationDelay: `${Math.random() * 3}s`,
+                        animationDuration: `${2 + Math.random() * 1}s`
+                      }}
+                    />
+                  ))}
 
-                 {/* Coupon Code Display */}
-                 <div className="bg-luxury-700 border border-royal-400 rounded-lg p-4 mb-4 animate-[fadeInUp_0.8s_ease-out_0.6s_both]">
-                   <p className="text-sm text-gray-300 mb-2">Your coupon code:</p>
-                   <div className="text-2xl font-mono font-bold text-royal-400 tracking-wider">
-                     {claimedOffer.couponCode}
-                   </div>
-                   {claimedOffer.copied && (
-                     <p className="text-green-400 text-sm mt-2 flex items-center justify-center gap-1">
-                       <Copy className="w-4 h-4" />
-                       Copied to clipboard!
-                     </p>
-                   )}
-                 </div>
+                  {/* Success checkmark - Smaller */}
+                  <div className="flex items-center justify-center mb-2">
+                    <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg animate-[bounceIn_0.6s_ease-out]">
+                      <Check className="w-7 h-7 text-green-500 animate-[checkmark_0.8s_ease-in-out]" />
+                    </div>
+                  </div>
 
-                 {/* Discount Badge */}
-                 <div className="inline-flex items-center bg-gradient-to-r from-royal-600 to-purple-600 text-white px-6 py-2 rounded-full text-lg font-bold mb-4 animate-[bounceIn_1s_ease-out_0.8s_both]">
-                   <Gift className="w-5 h-5 mr-2" />
-                   {claimedOffer.discount}
-                 </div>
+                  <h2 className="text-xl font-bold text-white text-center animate-[fadeInUp_0.8s_ease-out_0.3s_both]">
+                    Offer Claimed!
+                  </h2>
 
-                 {/* Instructions */}
-                 <p className="text-sm text-gray-400 animate-[fadeInUp_0.8s_ease-out_1s_both]">
-                   Use this code during booking to get your discount!
-                 </p>
+                  <div className="text-center mt-1 animate-[fadeInUp_0.8s_ease-out_0.4s_both]">
+                    <span className="inline-block bg-white/20 text-white text-xs py-1 px-2 rounded-full">
+                      ID: {claimedOffer.claimId}
+                    </span>
+                  </div>
+                </div>
 
-                 {/* Auto-close indicator */}
-                 <div className="mt-4 flex items-center justify-center gap-2 text-xs text-gray-500">
-                   <Clock className="w-3 h-3" />
-                   <span>Auto-closing in 4 seconds...</span>
-                 </div>
-               </div>
+                {/* Offer details - Compact */}
+                <div className="p-4 animate-[fadeInUp_0.8s_ease-out_0.5s_both]">
+                  <div className="bg-gradient-to-r from-luxury-900/60 to-luxury-800/60 rounded-xl p-3 border border-royal-500/20 mb-3">
+                    <h3 className="font-semibold text-royal-300 text-base mb-1">
+                      {claimedOffer.title}
+                    </h3>
+                    <p className="text-gray-300 text-xs">
+                      {claimedOffer.description}
+                    </p>
+                  </div>
 
-               {/* Floating particles */}
-               <div className="absolute inset-0 pointer-events-none overflow-hidden">
-                 {[...Array(8)].map((_, i) => (
-                   <div
-                     key={i}
-                     className="absolute w-4 h-4 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full opacity-70 animate-[float_3s_ease-in-out_infinite]"
-                     style={{
-                       left: `${10 + Math.random() * 80}%`,
-                       top: `${10 + Math.random() * 80}%`,
-                       animationDelay: `${Math.random() * 3}s`
-                     }}
-                   />
-                 ))}
-               </div>
-             </div>
-           )}
-         </div>
-       )}
-       
-       {/* Booking Confirmation Animation */}
-       {showBookingConfirmation && bookingConfirmationDetails && (
-         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md">
-           <div className="relative w-full max-w-xl">
-             {/* Fireworks Animation */}
-             <div className="absolute inset-0 pointer-events-none overflow-hidden">
-               {/* Firework bursts */}
-               {[...Array(15)].map((_, i) => (
-                 <div key={`firework-${i}`} className="absolute">
-                   {[...Array(12)].map((_, j) => (
-                     <div
-                       key={`spark-${i}-${j}`}
-                       className="absolute h-1 w-20 origin-left"
-                       style={{
-                         left: `${Math.random() * 100}%`,
-                         top: `${Math.random() * 100}%`,
-                         transform: `rotate(${j * 30}deg)`,
-                         opacity: 0,
-                         animation: `firework-spark 0.8s ease-out ${i * 0.2}s forwards`
-                       }}
-                     >
-                       <div 
-                         className="h-full w-full rounded-full animate-ping"
-                         style={{
-                           background: `linear-gradient(90deg, 
+                  {/* Coupon Code Card - Compact */}
+                  <div className="bg-gradient-to-r from-royal-900/40 to-purple-900/40 rounded-xl p-3 border border-royal-500/20 shadow-lg mb-3 animate-[fadeInRight_0.5s_ease-out_0.6s_both]">
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-xs text-royal-300">Coupon Code</span>
+                      <span className="text-xs text-gray-400">Valid till {format(claimedOffer.expiryDate, "dd MMM")}</span>
+                    </div>
+
+                    <div className="bg-royal-900/50 border border-royal-500/30 rounded-lg p-2 text-center">
+                      <div className="font-mono text-lg font-bold text-royal-300 tracking-wider">
+                        {claimedOffer.couponCode}
+                      </div>
+                      {claimedOffer.copied && (
+                        <p className="text-green-400 text-xs mt-1 flex items-center justify-center gap-1">
+                          <Copy className="w-3 h-3" />
+                          Copied!
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Discount Badge - Compact */}
+                  <div className="bg-gradient-to-r from-green-900/30 to-emerald-900/30 rounded-lg p-2 border border-green-500/30 shadow-lg animate-[fadeInRight_0.5s_ease-out_0.7s_both]">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-6 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg flex items-center justify-center">
+                          <Gift className="w-3 h-3 text-white" />
+                        </div>
+                        <span className="text-xs text-green-300">Discount</span>
+                      </div>
+                      <span className="text-base font-bold text-green-300">{claimedOffer.discount}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Instructions - Compact */}
+                <div className="bg-royal-900/30 p-4 border-t border-royal-500/20 animate-[fadeInUp_0.8s_ease-out_0.8s_both]">
+                  <h4 className="text-royal-300 font-medium mb-2 text-xs">How to use</h4>
+                  <ol className="space-y-1 text-xs text-gray-300">
+                    <li className="flex items-start gap-2">
+                      <div className="w-4 h-4 bg-royal-800 rounded-full flex items-center justify-center text-xs text-royal-300 mt-0.5">1</div>
+                      <span>Go to booking page</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <div className="w-4 h-4 bg-royal-800 rounded-full flex items-center justify-center text-xs text-royal-300 mt-0.5">2</div>
+                      <span>Enter coupon code</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <div className="w-4 h-4 bg-royal-800 rounded-full flex items-center justify-center text-xs text-royal-300 mt-0.5">3</div>
+                      <span>Enjoy discount!</span>
+                    </li>
+                  </ol>
+                </div>
+
+                {/* Footer - Compact */}
+                <div className="p-3 border-t border-royal-500/20 flex justify-between items-center animate-[fadeInUp_0.8s_ease-out_1s_both]">
+                  <div className="text-xs text-gray-400 flex items-center gap-1">
+                    <Clock className="w-3 h-3" />
+                    <span>Auto-closing in 6s</span>
+                  </div>
+
+                  <div className="text-royal-300 text-xs">
+                    {format(claimedOffer.claimTime, "dd MMM")}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="relative">
+              {/* Confetti Animation */}
+              <div className="absolute inset-0 pointer-events-none">
+                {[...Array(20)].map((_, i) => (
+                  <div
+                    key={i}
+                    className="absolute w-2 h-2 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full animate-bounce"
+                    style={{
+                      left: `${Math.random() * 100}%`,
+                      top: `${Math.random() * 100}%`,
+                      animationDelay: `${Math.random() * 2}s`,
+                      animationDuration: `${1 + Math.random()}s`
+                    }}
+                  />
+                ))}
+                {[...Array(15)].map((_, i) => (
+                  <div
+                    key={i + 20}
+                    className="absolute w-1 h-1 bg-gradient-to-r from-royal-400 to-purple-500 rounded-full animate-ping"
+                    style={{
+                      left: `${Math.random() * 100}%`,
+                      top: `${Math.random() * 100}%`,
+                      animationDelay: `${Math.random() * 3}s`,
+                      animationDuration: `${0.5 + Math.random()}s`
+                    }}
+                  />
+                ))}
+              </div>
+
+              {/* Main Success Card */}
+              <div className="bg-gradient-to-br from-luxury-800 to-luxury-900 border-2 border-royal-400 rounded-2xl p-8 max-w-md mx-4 text-center transform animate-[slideInUp_0.6s_ease-out] shadow-2xl">
+                {/* Success Icon with Pulse Animation */}
+                <div className="relative mb-6">
+                  <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto animate-pulse">
+                    <Check className="w-10 h-10 text-white animate-[checkmark_0.8s_ease-in-out]" />
+                  </div>
+                  <div className="absolute inset-0 w-20 h-20 bg-green-400/30 rounded-full mx-auto animate-ping"></div>
+                </div>
+
+                {/* Success Message */}
+                <h3 className="text-2xl font-bold text-white mb-2 animate-[fadeInUp_0.8s_ease-out_0.2s_both]">
+                  🎉 Offer Claimed Successfully!
+                </h3>
+
+                <p className="text-gray-300 mb-4 animate-[fadeInUp_0.8s_ease-out_0.4s_both]">
+                  {claimedOffer.title}
+                </p>
+
+                {/* Coupon Code Display */}
+                <div className="bg-luxury-700 border border-royal-400 rounded-lg p-4 mb-4 animate-[fadeInUp_0.8s_ease-out_0.6s_both]">
+                  <p className="text-sm text-gray-300 mb-2">Your coupon code:</p>
+                  <div className="text-2xl font-mono font-bold text-royal-400 tracking-wider">
+                    {claimedOffer.couponCode}
+                  </div>
+                  {claimedOffer.copied && (
+                    <p className="text-green-400 text-sm mt-2 flex items-center justify-center gap-1">
+                      <Copy className="w-4 h-4" />
+                      Copied to clipboard!
+                    </p>
+                  )}
+                </div>
+
+                {/* Discount Badge */}
+                <div className="inline-flex items-center bg-gradient-to-r from-royal-600 to-purple-600 text-white px-6 py-2 rounded-full text-lg font-bold mb-4 animate-[bounceIn_1s_ease-out_0.8s_both]">
+                  <Gift className="w-5 h-5 mr-2" />
+                  {claimedOffer.discount}
+                </div>
+
+                {/* Instructions */}
+                <p className="text-sm text-gray-400 animate-[fadeInUp_0.8s_ease-out_1s_both]">
+                  Use this code during booking to get your discount!
+                </p>
+
+                {/* Auto-close indicator */}
+                <div className="mt-4 flex items-center justify-center gap-2 text-xs text-gray-500">
+                  <Clock className="w-3 h-3" />
+                  <span>Auto-closing in 4 seconds...</span>
+                </div>
+              </div>
+
+              {/* Floating particles */}
+              <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                {[...Array(8)].map((_, i) => (
+                  <div
+                    key={i}
+                    className="absolute w-4 h-4 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full opacity-70 animate-[float_3s_ease-in-out_infinite]"
+                    style={{
+                      left: `${10 + Math.random() * 80}%`,
+                      top: `${10 + Math.random() * 80}%`,
+                      animationDelay: `${Math.random() * 3}s`
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Booking Confirmation Animation */}
+      {showBookingConfirmation && bookingConfirmationDetails && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md">
+          <div className="relative w-full max-w-xl">
+            {/* Fireworks Animation */}
+            <div className="absolute inset-0 pointer-events-none overflow-hidden">
+              {/* Firework bursts */}
+              {[...Array(15)].map((_, i) => (
+                <div key={`firework-${i}`} className="absolute">
+                  {[...Array(12)].map((_, j) => (
+                    <div
+                      key={`spark-${i}-${j}`}
+                      className="absolute h-1 w-20 origin-left"
+                      style={{
+                        left: `${Math.random() * 100}%`,
+                        top: `${Math.random() * 100}%`,
+                        transform: `rotate(${j * 30}deg)`,
+                        opacity: 0,
+                        animation: `firework-spark 0.8s ease-out ${i * 0.2}s forwards`
+                      }}
+                    >
+                      <div
+                        className="h-full w-full rounded-full animate-ping"
+                        style={{
+                          background: `linear-gradient(90deg, 
                              ${['#FFD700', '#FF6B6B', '#4ECDC4', '#FF8C42', '#A06CD5', '#45B8AC'][i % 6]} 0%, 
                              transparent 100%)`
-                         }}
-                       />
-                     </div>
-                   ))}
-                 </div>
-               ))}
-               
-               {/* Floating stars */}
-               {[...Array(30)].map((_, i) => (
-                 <div
-                   key={`star-${i}`}
-                   className="absolute w-1 h-1 bg-white rounded-full animate-twinkle"
-                   style={{
-                     left: `${Math.random() * 100}%`,
-                     top: `${Math.random() * 100}%`,
-                     animationDelay: `${Math.random() * 5}s`,
-                     animationDuration: `${1 + Math.random() * 2}s`
-                   }}
-                 />
-               ))}
-             </div>
+                        }}
+                      />
+                    </div>
+                  ))}
+                </div>
+              ))}
 
-             {/* Main Confirmation Card */}
-             <div className="bg-gradient-to-br from-luxury-900 via-luxury-800 to-luxury-900 border-2 border-royal-400/50 rounded-3xl overflow-hidden shadow-2xl animate-[zoomInFade_0.8s_ease-out]">
-               {/* Header with confetti */}
-               <div className="relative bg-gradient-to-r from-royal-600 to-purple-600 py-6 px-8 overflow-hidden">
-                 {/* Animated confetti in header */}
-                 {[...Array(20)].map((_, i) => (
-                   <div
-                     key={`header-confetti-${i}`}
-                     className="absolute w-2 h-2 rounded-full animate-float-confetti"
-                     style={{
-                       backgroundColor: ['#FFD700', '#FF6B6B', '#4ECDC4', '#FF8C42', '#A06CD5'][i % 5],
-                       left: `${Math.random() * 100}%`,
-                       top: `${Math.random() * 100}%`,
-                       animationDelay: `${Math.random() * 5}s`,
-                       animationDuration: `${3 + Math.random() * 2}s`
-                     }}
-                   />
-                 ))}
-                 
-                 {/* Success checkmark */}
-                 <div className="flex items-center justify-center mb-2">
-                   <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-lg animate-[bounceIn_0.6s_ease-out]">
-                     <Check className="w-10 h-10 text-green-500 animate-[checkmark_0.8s_ease-in-out]" />
-                   </div>
-                 </div>
-                 
-                 <h2 className="text-2xl font-bold text-white text-center animate-[fadeInUp_0.8s_ease-out_0.3s_both]">
-                   Booking Confirmed!
-                 </h2>
-                 
-                 <div className="text-center mt-2 animate-[fadeInUp_0.8s_ease-out_0.4s_both]">
-                   <span className="inline-block bg-white/20 text-white text-xs py-1 px-3 rounded-full">
-                     Confirmation #{bookingConfirmationDetails.confirmationNumber}
-                   </span>
-                 </div>
-               </div>
-               
-               {/* Property details */}
-               <div className="p-6 animate-[fadeInUp_0.8s_ease-out_0.5s_both]">
-                 <div className="flex items-center gap-4 mb-6">
-                   <div className="relative">
-                     <img 
-                       src={bookingConfirmationDetails.property.image} 
-                       alt={bookingConfirmationDetails.property.name}
-                       className="w-20 h-20 rounded-xl object-cover ring-2 ring-royal-400/30"
-                     />
-                     <div className="absolute -bottom-2 -right-2 w-6 h-6 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center border-2 border-white">
-                       <Check className="w-3 h-3 text-white" />
-                     </div>
-                   </div>
-                   <div>
-                     <h3 className="font-bold text-white text-lg">
-                       {bookingConfirmationDetails.property.name}
-                     </h3>
-                     <p className="text-gray-300 text-sm flex items-center gap-1">
-                       <MapPin className="w-3 h-3" />
-                       {bookingConfirmationDetails.property.location}
-                     </p>
-                   </div>
-                 </div>
-                 
-                 {/* Booking details with animated reveal */}
-                 <div className="space-y-4">
-                   {/* Room type */}
-                   <div className="flex justify-between items-center animate-[fadeInRight_0.5s_ease-out_0.6s_both]">
-                     <div className="flex items-center gap-2">
-                       <div className="w-8 h-8 bg-royal-900/50 rounded-lg flex items-center justify-center">
-                         <Home className="w-4 h-4 text-royal-400" />
-                       </div>
-                       <span className="text-gray-300">Room Type</span>
-                     </div>
-                     <span className="text-white font-medium">{bookingConfirmationDetails.roomType}</span>
-                   </div>
-                   
-                   {/* Check-in */}
-                   <div className="flex justify-between items-center animate-[fadeInRight_0.5s_ease-out_0.7s_both]">
-                     <div className="flex items-center gap-2">
-                       <div className="w-8 h-8 bg-royal-900/50 rounded-lg flex items-center justify-center">
-                         <CalendarIcon className="w-4 h-4 text-royal-400" />
-                       </div>
-                       <span className="text-gray-300">Check-in</span>
-                     </div>
-                     <span className="text-white font-medium">{format(bookingConfirmationDetails.checkIn, "EEE, MMM d, yyyy")}</span>
-                   </div>
-                   
-                   {/* Check-out */}
-                   <div className="flex justify-between items-center animate-[fadeInRight_0.5s_ease-out_0.8s_both]">
-                     <div className="flex items-center gap-2">
-                       <div className="w-8 h-8 bg-royal-900/50 rounded-lg flex items-center justify-center">
-                         <CalendarIcon className="w-4 h-4 text-royal-400" />
-                       </div>
-                       <span className="text-gray-300">Check-out</span>
-                     </div>
-                     <span className="text-white font-medium">{format(bookingConfirmationDetails.checkOut, "EEE, MMM d, yyyy")}</span>
-                   </div>
-                   
-                   {/* Duration */}
-                   <div className="flex justify-between items-center animate-[fadeInRight_0.5s_ease-out_0.9s_both]">
-                     <div className="flex items-center gap-2">
-                       <div className="w-8 h-8 bg-royal-900/50 rounded-lg flex items-center justify-center">
-                         <Clock className="w-4 h-4 text-royal-400" />
-                       </div>
-                       <span className="text-gray-300">Duration</span>
-                     </div>
-                     <span className="text-white font-medium">{bookingConfirmationDetails.nights} nights</span>
-                   </div>
-                 </div>
-               </div>
-               
-               {/* Payment summary */}
-               <div className="bg-royal-900/30 p-6 border-t border-royal-500/20 animate-[fadeInUp_0.8s_ease-out_1s_both]">
-                 <h4 className="text-royal-300 font-medium mb-4">Payment Summary</h4>
-                 
-                 <div className="space-y-2">
-                   {bookingConfirmationDetails.discount > 0 && (
-                     <>
-                       <div className="flex justify-between text-sm">
-                         <span className="text-gray-400">Original Price</span>
-                         <span className="text-gray-400 line-through">₹{bookingConfirmationDetails.originalPrice.toLocaleString()}</span>
-                       </div>
-                       
-                       <div className="flex justify-between text-sm">
-                         <span className="text-green-400">
-                           Discount
-                           {bookingConfirmationDetails.coupon && (
-                             <span className="ml-1">({bookingConfirmationDetails.coupon.code})</span>
-                           )}
-                         </span>
-                         <span className="text-green-400">-₹{bookingConfirmationDetails.discount.toLocaleString()}</span>
-                       </div>
-                     </>
-                   )}
-                   
-                   <div className="flex justify-between pt-2 border-t border-royal-500/20">
-                     <span className="text-white font-medium">Total Amount</span>
-                     <span className="text-xl font-bold bg-gradient-to-r from-royal-400 to-purple-400 bg-clip-text text-transparent">
-                       ₹{bookingConfirmationDetails.price.toLocaleString()}
-                     </span>
-                   </div>
-                 </div>
-               </div>
-               
-               {/* Footer with auto-close and download option */}
-               <div className="p-6 border-t border-royal-500/20 flex justify-between items-center animate-[fadeInUp_0.8s_ease-out_1.2s_both]">
-                 <div className="text-xs text-gray-400 flex items-center gap-1">
-                   <Clock className="w-3 h-3" />
-                   <span>Auto-closing in 8 seconds</span>
-                 </div>
-                 
-                 <div className="flex items-center gap-2">
-                   <div className="text-royal-300 text-sm flex items-center gap-1 animate-pulse">
-                     <span>Booking ID: {bookingConfirmationDetails.bookingId}</span>
-                   </div>
-                 </div>
-               </div>
-             </div>
-           </div>
-         </div>
-       )}
-     </div>
-   );
- };
+              {/* Floating stars */}
+              {[...Array(30)].map((_, i) => (
+                <div
+                  key={`star-${i}`}
+                  className="absolute w-1 h-1 bg-white rounded-full animate-twinkle"
+                  style={{
+                    left: `${Math.random() * 100}%`,
+                    top: `${Math.random() * 100}%`,
+                    animationDelay: `${Math.random() * 5}s`,
+                    animationDuration: `${1 + Math.random() * 2}s`
+                  }}
+                />
+              ))}
+            </div>
+
+            {/* Main Confirmation Card */}
+            <div className="bg-gradient-to-br from-luxury-900 via-luxury-800 to-luxury-900 border-2 border-royal-400/50 rounded-3xl overflow-hidden shadow-2xl animate-[zoomInFade_0.8s_ease-out]">
+              {/* Header with confetti */}
+              <div className="relative bg-gradient-to-r from-royal-600 to-purple-600 py-6 px-8 overflow-hidden">
+                {/* Animated confetti in header */}
+                {[...Array(20)].map((_, i) => (
+                  <div
+                    key={`header-confetti-${i}`}
+                    className="absolute w-2 h-2 rounded-full animate-float-confetti"
+                    style={{
+                      backgroundColor: ['#FFD700', '#FF6B6B', '#4ECDC4', '#FF8C42', '#A06CD5'][i % 5],
+                      left: `${Math.random() * 100}%`,
+                      top: `${Math.random() * 100}%`,
+                      animationDelay: `${Math.random() * 5}s`,
+                      animationDuration: `${3 + Math.random() * 2}s`
+                    }}
+                  />
+                ))}
+
+                {/* Success checkmark */}
+                <div className="flex items-center justify-center mb-2">
+                  <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-lg animate-[bounceIn_0.6s_ease-out]">
+                    <Check className="w-10 h-10 text-green-500 animate-[checkmark_0.8s_ease-in-out]" />
+                  </div>
+                </div>
+
+                <h2 className="text-2xl font-bold text-white text-center animate-[fadeInUp_0.8s_ease-out_0.3s_both]">
+                  Booking Confirmed!
+                </h2>
+
+                <div className="text-center mt-2 animate-[fadeInUp_0.8s_ease-out_0.4s_both]">
+                  <span className="inline-block bg-white/20 text-white text-xs py-1 px-3 rounded-full">
+                    Confirmation #{bookingConfirmationDetails.confirmationNumber}
+                  </span>
+                </div>
+              </div>
+
+              {/* Property details */}
+              <div className="p-6 animate-[fadeInUp_0.8s_ease-out_0.5s_both]">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="relative">
+                    <img
+                      src={bookingConfirmationDetails.property.image}
+                      alt={bookingConfirmationDetails.property.name}
+                      className="w-20 h-20 rounded-xl object-cover ring-2 ring-royal-400/30"
+                    />
+                    <div className="absolute -bottom-2 -right-2 w-6 h-6 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center border-2 border-white">
+                      <Check className="w-3 h-3 text-white" />
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-white text-lg">
+                      {bookingConfirmationDetails.property.name}
+                    </h3>
+                    <p className="text-gray-300 text-sm flex items-center gap-1">
+                      <MapPin className="w-3 h-3" />
+                      {bookingConfirmationDetails.property.location}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Booking details with animated reveal */}
+                <div className="space-y-4">
+                  {/* Room type */}
+                  <div className="flex justify-between items-center animate-[fadeInRight_0.5s_ease-out_0.6s_both]">
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 bg-royal-900/50 rounded-lg flex items-center justify-center">
+                        <Home className="w-4 h-4 text-royal-400" />
+                      </div>
+                      <span className="text-gray-300">Room Type</span>
+                    </div>
+                    <span className="text-white font-medium">{bookingConfirmationDetails.roomType}</span>
+                  </div>
+
+                  {/* Check-in */}
+                  <div className="flex justify-between items-center animate-[fadeInRight_0.5s_ease-out_0.7s_both]">
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 bg-royal-900/50 rounded-lg flex items-center justify-center">
+                        <CalendarIcon className="w-4 h-4 text-royal-400" />
+                      </div>
+                      <span className="text-gray-300">Check-in</span>
+                    </div>
+                    <span className="text-white font-medium">{format(bookingConfirmationDetails.checkIn, "EEE, MMM d, yyyy")}</span>
+                  </div>
+
+                  {/* Check-out */}
+                  <div className="flex justify-between items-center animate-[fadeInRight_0.5s_ease-out_0.8s_both]">
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 bg-royal-900/50 rounded-lg flex items-center justify-center">
+                        <CalendarIcon className="w-4 h-4 text-royal-400" />
+                      </div>
+                      <span className="text-gray-300">Check-out</span>
+                    </div>
+                    <span className="text-white font-medium">{format(bookingConfirmationDetails.checkOut, "EEE, MMM d, yyyy")}</span>
+                  </div>
+
+                  {/* Duration */}
+                  <div className="flex justify-between items-center animate-[fadeInRight_0.5s_ease-out_0.9s_both]">
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 bg-royal-900/50 rounded-lg flex items-center justify-center">
+                        <Clock className="w-4 h-4 text-royal-400" />
+                      </div>
+                      <span className="text-gray-300">Duration</span>
+                    </div>
+                    <span className="text-white font-medium">{bookingConfirmationDetails.nights} nights</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Payment summary */}
+              <div className="bg-royal-900/30 p-6 border-t border-royal-500/20 animate-[fadeInUp_0.8s_ease-out_1s_both]">
+                <h4 className="text-royal-300 font-medium mb-4">Payment Summary</h4>
+
+                <div className="space-y-2">
+                  {bookingConfirmationDetails.discount > 0 && (
+                    <>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-400">Original Price</span>
+                        <span className="text-gray-400 line-through">₹{bookingConfirmationDetails.originalPrice.toLocaleString()}</span>
+                      </div>
+
+                      <div className="flex justify-between text-sm">
+                        <span className="text-green-400">
+                          Discount
+                          {bookingConfirmationDetails.coupon && (
+                            <span className="ml-1">({bookingConfirmationDetails.coupon.code})</span>
+                          )}
+                        </span>
+                        <span className="text-green-400">-₹{bookingConfirmationDetails.discount.toLocaleString()}</span>
+                      </div>
+                    </>
+                  )}
+
+                  <div className="flex justify-between pt-2 border-t border-royal-500/20">
+                    <span className="text-white font-medium">Total Amount</span>
+                    <span className="text-xl font-bold bg-gradient-to-r from-royal-400 to-purple-400 bg-clip-text text-transparent">
+                      ₹{bookingConfirmationDetails.price.toLocaleString()}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Footer with auto-close and download option */}
+              <div className="p-6 border-t border-royal-500/20 flex justify-between items-center animate-[fadeInUp_0.8s_ease-out_1.2s_both]">
+                <div className="text-xs text-gray-400 flex items-center gap-1">
+                  <Clock className="w-3 h-3" />
+                  <span>Auto-closing in 8 seconds</span>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <div className="text-royal-300 text-sm flex items-center gap-1 animate-pulse">
+                    <span>Booking ID: {bookingConfirmationDetails.bookingId}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
 
 export default ExploreStays;

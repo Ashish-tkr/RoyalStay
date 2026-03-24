@@ -69,7 +69,7 @@ interface Apartment {
   hasSpa?: boolean;
   createdAt?: Date;
   updatedAt?: Date;
-  __v: number;
+  __v?: number;
   minPrice?: number;
   minBasePrice?: number;
   cheapestFlat?: FlatType;

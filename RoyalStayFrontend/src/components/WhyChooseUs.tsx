@@ -30,17 +30,17 @@ const WhyChooseUs = () => {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16 animate-fade-in">
           <h2 className="text-4xl sm:text-5xl font-bold mb-6">
-            Why Choose <span className="gradient-text">Sirinilaya</span>
+            Why Choose <span className="gradient-text">RoyalStay</span>
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            We don't just offer accommodations; we create extraordinary experiences 
+            We don't just offer accommodations; we create extraordinary experiences
             that celebrate luxury, comfort, and authentic hospitality.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((feature, index) => (
-            <div 
+            <div
               key={feature.title}
               className="luxury-card p-8 rounded-xl hover-lift group animate-slide-up"
               style={{ animationDelay: `${index * 0.2}s` }}

@@ -2,20 +2,20 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const AnimatedLogo = () => {
-  const englishText = "Sirinilaya";
+  const englishText = "RoyalStay";
   const kannadaText = "ಸಿರಿನಿಲಯ";
-  
-  
+
+
   const [displayText, setDisplayText] = useState(englishText);
   const [isDeleting, setIsDeleting] = useState(false);
   const [isTypingKannada, setIsTypingKannada] = useState(false);
   const [index, setIndex] = useState(englishText.length);
   const [isAnimating, setIsAnimating] = useState(true);
-  
+
   // Controls the typing/deleting animation
   useEffect(() => {
     if (!isAnimating) return;
-    
+
     const timeout = setTimeout(() => {
       // Deleting English text
       if (isDeleting && !isTypingKannada) {
@@ -27,7 +27,7 @@ const AnimatedLogo = () => {
           setIsTypingKannada(true);
           setIndex(0);
         }
-      } 
+      }
       // Typing Kannada text
       else if (isTypingKannada) {
         if (index < kannadaText.length) {
@@ -50,7 +50,7 @@ const AnimatedLogo = () => {
         }, 1000); // Wait 1.5 seconds before starting to delete
       }
     }, isDeleting ? 100 : 150); // Deleting is slightly faster than typing
-    
+
     return () => clearTimeout(timeout);
   }, [isDeleting, isTypingKannada, index, isAnimating]);
 
@@ -67,7 +67,7 @@ const AnimatedLogo = () => {
 
   return (
     <Link to="/">
-      <h1 
+      <h1
         className="text-2xl font-bold gradient-text cursor-pointer relative"
         onMouseEnter={handleMouseEnter}
       >
